@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import * as grid from '../grid/index';
-import { OpenAction } from '../grid/index';
+import { IOpenAction } from '../grid/index';
 
 export interface PassedProps {
     initialChats: Array<string>;
@@ -12,7 +12,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    openAction(streamId: string): OpenAction
+    openAction(streamId: string): IOpenAction
 }
 
 type NavProps = PassedProps & StateProps & DispatchProps;
@@ -25,11 +25,9 @@ const mapStateToProps = (state: any, ownProps: PassedProps): StateProps => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
-    return {
-        openAction: (streamId: string) => dispatch(grid.actions.open(streamId))
-    }
-};
+const mapDispatchToProps = (dispatch: Dispatch<any>) => bindActionCreators({
+    openAction: grid.actions.open
+}, dispatch);
 
 class Navigation extends React.Component<NavProps, NavState> {
     constructor(props: NavProps) {
@@ -54,16 +52,16 @@ class Navigation extends React.Component<NavProps, NavState> {
 
     getNavItems() {
         let chats = []
-        this.props.initialChats.forEach((chatId) => {
-            let chat = <button onClick={this.onClick.bind(this,chatId)}
-                               key={chatId}>{chatId}</button>
+        this.props.initialChats.forEach((streamId) => {
+            let chat = <button onClick={this.onClick.bind(this,streamId)}
+                               key={streamId}>{streamId}</button>
             chats.push(chat);
         });
         return chats;
     }
 
-    onClick(chatId) {
-        this.props.openAction(chatId);
+    onClick(streamId) {
+        this.props.openAction(streamId);
     }
 }
 

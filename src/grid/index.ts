@@ -3,17 +3,17 @@ import { gridReducer } from './reducer';
 import * as selectors from './selectors';
 import * as actions from './actions';
 
-// import * as actionTypes from './actionTypes';
+//import * as actionTypes from './actionTypes';
 // ToDo: need to figure better way to re-export interfaces, above doesn't work.
-import { CloseAction, OpenAction } from './actionTypes';
+import { ICloseAction, IOpenAction } from './actionTypes';
 
 export {
     Grid as component,
     gridReducer as reducer,
     selectors,
     actions,
-    CloseAction,
-    OpenAction
+    ICloseAction,
+    IOpenAction
 }
 
 // //registrar.addEventListener('start', () => {

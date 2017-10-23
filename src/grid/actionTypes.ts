@@ -3,15 +3,15 @@ export enum ActionTypeKeys {
     CLOSE = 'grid/CLOSE',
 }
 
-export interface OpenAction {
+export interface IOpenAction {
     type: ActionTypeKeys.OPEN;
     value: string;
 }
 
-export interface CloseAction {
+export interface ICloseAction {
     type: ActionTypeKeys.CLOSE;
     value: string;
 }
 
 // concat of all actions
-export type ActionTypes = OpenAction | CloseAction;
+export type ActionTypes = IOpenAction | ICloseAction;

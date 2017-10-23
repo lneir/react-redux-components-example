@@ -1,4 +1,4 @@
-import { ActionTypes, ActionTypeKeys, OpenAction, CloseAction } from './actionTypes';
+import { ActionTypes, ActionTypeKeys, IOpenAction, ICloseAction } from './actionTypes';
 
 interface State {
     chats: Array<string>;
@@ -8,7 +8,7 @@ const INITIAL_STATE: State = {
     chats: []
 }
 
-function doOpen(s: State, action: OpenAction) {
+function doOpen(s: State, action: IOpenAction) {
     if (s.chats.indexOf(action.value) !== -1) {
         return s;
     }
@@ -18,7 +18,7 @@ function doOpen(s: State, action: OpenAction) {
     };
 }
 
-function doClose(s: State, action: CloseAction) {
+function doClose(s: State, action: ICloseAction) {
     var newChats = s.chats.filter((name) => {
         return name !== action.value
     });

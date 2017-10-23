@@ -56,8 +56,8 @@ class Grid extends React.Component<GridProps, GridState> {
 
     getChats() {
         var chats = [];
-        this.props.chats.forEach((name) => {
-            chats.push(<Chat key={name} name={name}/>);
+        this.props.chats.forEach((streamId) => {
+            chats.push(<Chat key={streamId} streamId={streamId}/>);
         })
         return chats;
     }

@@ -1,11 +1,12 @@
 import Navigation from './comp';
 import { navigationReducer } from './reducer';
-// import * as selectors from './selectors';
+import * as selectors from './selectors';
 
 // public interface for navigation connected component
 export {
     Navigation as component,
-    navigationReducer as reducer
+    navigationReducer as reducer,
+    selectors
 }
 
 // //registrar.addEventListener('start', () => {
