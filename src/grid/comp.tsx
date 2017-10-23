@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { chatsSelector } from './selectors';
 
-import { component as Chat } from '../chat/index';
+import { component as Chat } from '../chat';
 
 export interface PassedProps {
 }

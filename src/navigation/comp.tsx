@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import * as grid from '../grid/index';
-import { IOpenAction } from '../grid/index';
+import * as grid from '../grid';
+import { IOpenAction } from '../grid';
 
 export interface PassedProps {
-    initialChats: Array<string>;
+    navItems: Array<string>;
 }
 
 interface StateProps {
@@ -52,7 +52,7 @@ class Navigation extends React.Component<NavProps, NavState> {
 
     getNavItems() {
         let chats = []
-        this.props.initialChats.forEach((streamId) => {
+        this.props.navItems.forEach((streamId) => {
             let chat = <button onClick={this.onClick.bind(this,streamId)}
                                key={streamId}>{streamId}</button>
             chats.push(chat);

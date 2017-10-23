@@ -3,22 +3,18 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 
-// use publc interfaces from component
+// use publc interfaces from components
 import * as Nav from './navigation/index';
 import * as Grid from './grid/index';
 import * as Chat from './chat/index';
 
-const rootReducer = combineReducers({
-    navigation: Nav.reducer,
-    grid: Grid.reducer,
-    chat: Chat.reducer
-});
-
-export let store = createStore(rootReducer);
+const reducers = Object.assign({}, Nav.getReducer(), Grid.getReducer(), Chat.getReducer())
+const rootReducer = combineReducers(reducers);
+let store = createStore(rootReducer);
 
 var navEl = document.getElementById('nav');
 
-var initialChats:Array<string> = [
+var navItems:Array<string> = [
     'chat1',
     'chat2',
     'chat3'
@@ -26,7 +22,7 @@ var initialChats:Array<string> = [
 
 ReactDOM.render(
   <Provider store={store}>
-    <Nav.component initialChats={initialChats}/>
+    <Nav.component navItems={navItems}/>
   </Provider>,
   navEl
 );

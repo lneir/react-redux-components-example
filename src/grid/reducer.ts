@@ -1,4 +1,5 @@
 import { ActionTypes, ActionTypeKeys, IOpenAction, ICloseAction } from './actionTypes';
+import { STATE_NAME } from './constants';
 
 interface State {
     chats: Array<string>;
@@ -27,7 +28,7 @@ function doClose(s: State, action: ICloseAction) {
     };
 }
 
-export function gridReducer(s: State = INITIAL_STATE, action: ActionTypes) {
+function gridReducer(s: State = INITIAL_STATE, action: ActionTypes) {
     switch(action.type) {
         case ActionTypeKeys.OPEN:
             return doOpen(s, action);
@@ -35,5 +36,12 @@ export function gridReducer(s: State = INITIAL_STATE, action: ActionTypes) {
             return doClose(s, action);
         default:
             return s;
+    }
+}
+
+// exported so combineReducer can build
+export default function() {
+    return {
+        [ STATE_NAME ]: gridReducer
     }
 }

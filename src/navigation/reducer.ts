@@ -1,4 +1,5 @@
 import { ActionTypes } from './actionTypes';
+import { STATE_NAME } from './constants';
 
 interface State {
 }
@@ -6,6 +7,13 @@ interface State {
 const INITIAL_STATE: State = {
 }
 
-export function navigationReducer(s: State = INITIAL_STATE, action: ActionTypes) {
+function navigationReducer(s: State = INITIAL_STATE, action: ActionTypes) {
     return s;
+}
+
+// exported so combineReducer can build
+export default function() {
+    return {
+        [ STATE_NAME ]: navigationReducer
+    }
 }

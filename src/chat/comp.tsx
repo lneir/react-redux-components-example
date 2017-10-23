@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import * as grid from '../grid/index';
-import { ICloseAction } from '../grid/index';
+import * as grid from '../grid';
+import { ICloseAction } from '../grid';
 
 interface PassedProps {
     streamId: string;
