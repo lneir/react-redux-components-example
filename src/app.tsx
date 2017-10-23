@@ -39,8 +39,3 @@ ReactDOM.render(
   </Provider>,
   gridEl
 );
-
-//export function injectAsyncReducer(store, name, asyncReducer) {
-//  store.asyncReducers[name] = asyncReducer;
-//  store.replaceReducer(createReducer(store.asyncReducers));
-//}
