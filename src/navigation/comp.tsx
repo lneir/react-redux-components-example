@@ -1,44 +1,70 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { open } from './actions';
+import { Dispatch } from 'redux';
+import * as grid from '../grid/index';
+import { OpenAction } from '../grid/index';
 
-export interface NavProps {
-    name: string;
-    openAction(streamId: string): void;
+export interface PassedProps {
+    initialChats: Array<string>;
 }
+
+interface StateProps {
+}
+
+interface DispatchProps {
+    openAction(streamId: string): OpenAction
+}
+
+type NavProps = PassedProps & StateProps & DispatchProps;
 
 interface NavState {
 }
 
-const mapStateToProps = (state) => {
-debugger;
+const mapStateToProps = (state: any, ownProps: PassedProps): StateProps => {
     return {
-     name: state.navigation.name
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    openAction: (streamId: string) => dispatch(open(streamId))
-});
+const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
+    return {
+        openAction: (streamId: string) => dispatch(grid.actions.open(streamId))
+    }
+};
 
-// const mapDispatchToProps = (dispatch) => bindActionCreators({
-//     openAction: open
-// }, dispatch);
-
-export class Nav extends React.Component<NavProps, NavState> {
+class Navigation extends React.Component<NavProps, NavState> {
     constructor(props: NavProps) {
         super(props);
     }
 
     render() {
-        return <button onClick={this.onClick.bind(this)}>Navigation</button>
+        var divStyle = {
+            border: '2px solid black',
+            margin: '2px',
+            padding: '2px'
+        }
+        return (
+            <div style={divStyle}>
+                <label>Navigation</label>
+                <div>
+                    {this.getNavItems()}
+                </div>
+            </div>
+        );
     }
 
-    onClick() {
-        debugger;
-        this.props.openAction('3');
+    getNavItems() {
+        let chats = []
+        this.props.initialChats.forEach((chatId) => {
+            let chat = <button onClick={this.onClick.bind(this,chatId)}
+                               key={chatId}>{chatId}</button>
+            chats.push(chat);
+        });
+        return chats;
+    }
+
+    onClick(chatId) {
+        this.props.openAction(chatId);
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

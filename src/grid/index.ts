@@ -1,11 +1,19 @@
-import Navigation from './comp';
-import { navigationReducer } from './reducer';
-// import * as selectors from './selectors';
+import Grid from './comp';
+import { gridReducer } from './reducer';
+import * as selectors from './selectors';
+import * as actions from './actions';
 
-// public interface for navigation connected component
+// import * as actionTypes from './actionTypes';
+// ToDo: need to figure better way to re-export interfaces, above doesn't work.
+import { CloseAction, OpenAction } from './actionTypes';
+
 export {
-    Navigation as component,
-    navigationReducer as reducer
+    Grid as component,
+    gridReducer as reducer,
+    selectors,
+    actions,
+    CloseAction,
+    OpenAction
 }
 
 // //registrar.addEventListener('start', () => {
