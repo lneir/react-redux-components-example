@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as grid from '../grid';
-import { IOpenAction } from '../grid';
 
 export interface PassedProps {
     navItems: Array<string>;
@@ -12,7 +11,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    openAction(streamId: string): IOpenAction
+    openAction(streamId: string): grid.actionTypes.IOpenAction
 }
 
 type NavProps = PassedProps & StateProps & DispatchProps;

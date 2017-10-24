@@ -2,8 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as grid from '../grid';
-import { ICloseAction } from '../grid';
-
 interface PassedProps {
     streamId: string;
 }
@@ -12,7 +10,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    closeAction(streamId: string): ICloseAction
+    closeAction(streamId: string): grid.actionTypes.ICloseAction
 }
 
 type ChatProps = PassedProps & StateProps & DispatchProps;
