@@ -24,10 +24,11 @@ const mapStateToProps = (state: any, ownProps: PassedProps): StateProps => {
     return { }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => bindActionCreators({
-    closeAction: grid.actions.close
-}, dispatch);
-
+const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
+    return {
+        closeAction: (streamId: string) => dispatch(grid.actions.close(streamId))
+    }
+};
 
 class Chat extends React.Component<ChatProps, ChatState> {
     constructor(props: ChatProps) {

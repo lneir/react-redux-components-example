@@ -25,9 +25,11 @@ const mapStateToProps = (state: any, ownProps: PassedProps): StateProps => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => bindActionCreators({
-    openAction: grid.actions.open
-}, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
+    return {
+        openAction: (streamId: string) => dispatch(grid.actions.open(streamId))
+    }
+};
 
 class Navigation extends React.Component<NavProps, NavState> {
     constructor(props: NavProps) {
