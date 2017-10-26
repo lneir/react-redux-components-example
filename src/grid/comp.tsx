@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { chatsSelector } from './selectors';
 
-// import { component as Chat } from '../chat';
-import * as Chat from '../chat';
+import { interfaces as chatInterfaces} from '../chat/interfaces';
 
 import registrar from '../registrar';
 
@@ -35,10 +34,10 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => {
 };
 
 class Grid extends React.Component<IGridProps, IGridState> {
-    private chat: Chat.IChat;
+    private chat: chatInterfaces.IChat;
     constructor(props: IGridProps) {
         super(props);
-        this.chat = registrar.get<Chat.IChat>(Chat.InterfaceSymbols.IChat);
+        this.chat = registrar.get<chatInterfaces.IChat>(chatInterfaces.IChatSymbol);
     }
 
     // private chat:IChat;

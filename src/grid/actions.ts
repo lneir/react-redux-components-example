@@ -1,16 +1,16 @@
-import { ActionTypeKeys, IOpenAction, ICloseAction } from './actionTypes';
 import { ActionCreator } from 'redux';
+import { interfaces } from './interfaces';
 
-export function open(streamId: string) : IOpenAction {
+export function open(streamId: string) : interfaces.IOpenAction {
     return {
-        type: ActionTypeKeys.OPEN,
+        type: interfaces.ActionTypeKeys.OPEN,
         value: streamId
     };
 }
 
-export function close(streamId: string) : ICloseAction {
+export function close(streamId: string) : interfaces.ICloseAction {
     return {
-        type: ActionTypeKeys.CLOSE,
+        type: interfaces.ActionTypeKeys.CLOSE,
         value: streamId
     };
 }

@@ -1,4 +1,4 @@
-import { ActionTypes } from './actionTypes';
+import { interfaces } from './interfaces'
 import { STATE_NAME } from './constants';
 
 interface State {
@@ -7,7 +7,7 @@ interface State {
 const INITIAL_STATE: State = {
 }
 
-function navigationReducer(s: State = INITIAL_STATE, action: ActionTypes) {
+function navigationReducer(s: State = INITIAL_STATE, action: interfaces.ActionTypes) {
     return s;
 }
 

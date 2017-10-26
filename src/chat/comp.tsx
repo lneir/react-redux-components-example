@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import * as Grid from '../grid';
+import { interfaces as gridInterfaces } from '../grid/interfaces';
 import registrar from '../registrar';
 import shallowEqual from '../shallowEqual';
-
-let grid;
 
 export interface IPassedProps {
     streamId: string;
@@ -15,7 +13,7 @@ interface IStateProps {
 }
 
 interface IDispatchProps {
-    closeAction(streamId: string): Grid.actionTypes.ICloseAction
+    closeAction(streamId: string): gridInterfaces.ICloseAction
 }
 
 
@@ -62,7 +60,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
 function selectorFactory(dispatch) {
     let ownProps = {}
     let result = {}
-    let grid = registrar.get<Grid.IGrid>(Grid.InterfaceSymbols.IGrid);
+    let grid = registrar.get<gridInterfaces.IGrid>(gridInterfaces.IGridSymbol);
 
     const actions = {
         closeAction: (streamId: string) => dispatch(grid.close(streamId))

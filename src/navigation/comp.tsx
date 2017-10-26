@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import * as Grid from '../grid';
+import { interfaces as gridInterfaces } from '../grid/interfaces';
 import registrar from '../registrar';
 import shallowEqual from '../shallowEqual';
 
@@ -13,7 +13,7 @@ interface IStateProps {
 }
 
 interface IDispatchProps {
-    openAction(streamId: string): Grid.actionTypes.IOpenAction
+    openAction(streamId: string): gridInterfaces.IOpenAction
 }
 
 type NavProps = IPassedProps & IStateProps & IDispatchProps;
@@ -71,7 +71,7 @@ class Navigation extends React.Component<NavProps, NavState> {
 function selectorFactory(dispatch) {
     let ownProps = {}
     let result = {}
-    let grid = registrar.get<Grid.IGrid>(Grid.InterfaceSymbols.IGrid);
+    let grid = registrar.get<gridInterfaces.IGrid>(gridInterfaces.IGridSymbol);
 
     const actions = {
         openAction: (streamId: string) => dispatch(grid.open(streamId))

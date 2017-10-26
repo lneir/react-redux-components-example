@@ -3,7 +3,7 @@ type InterfaceIdentifier = symbol;
 type constructor<T> = new(...args: any[]) => T;
 
 class Registrar {
-    private map: Map<any,any>;
+    private map: Map<InterfaceIdentifier,any>;
 
     constructor() {
         this.map = new Map();
@@ -15,6 +15,9 @@ class Registrar {
 
     get<T>(identifier:InterfaceIdentifier, ...args) {
         let C = this.map.get(identifier);
+        if (!C) {
+            throw new Error('No registration found for: ' + identifier.toString())
+        }
         let c = new C(args);
         return c as T;
     }

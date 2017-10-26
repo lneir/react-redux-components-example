@@ -1,5 +1,5 @@
-import { ActionTypes, ActionTypeKeys, IOpenAction, ICloseAction } from './actionTypes';
 import { STATE_NAME } from './constants';
+import { interfaces } from './interfaces'
 
 interface State {
     chats: Array<string>;
@@ -9,7 +9,7 @@ const INITIAL_STATE: State = {
     chats: []
 }
 
-function doOpen(s: State, action: IOpenAction) {
+function doOpen(s: State, action: interfaces.IOpenAction) {
     if (s.chats.indexOf(action.value) !== -1) {
         return s;
     }
@@ -19,7 +19,7 @@ function doOpen(s: State, action: IOpenAction) {
     };
 }
 
-function doClose(s: State, action: ICloseAction) {
+function doClose(s: State, action: interfaces.ICloseAction) {
     var newChats = s.chats.filter((name) => {
         return name !== action.value
     });
@@ -28,11 +28,11 @@ function doClose(s: State, action: ICloseAction) {
     };
 }
 
-function gridReducer(s: State = INITIAL_STATE, action: ActionTypes) {
+function gridReducer(s: State = INITIAL_STATE, action: interfaces.ActionTypes) {
     switch(action.type) {
-        case ActionTypeKeys.OPEN:
+        case interfaces.ActionTypeKeys.OPEN:
             return doOpen(s, action);
-        case ActionTypeKeys.CLOSE:
+        case interfaces.ActionTypeKeys.CLOSE:
             return doClose(s, action);
         default:
             return s;

@@ -4,21 +4,15 @@ import getReducer from './reducer';
 
 import registrar from '../registrar';
 
-export interface IChat {
-    readonly Component: new(...args: any[]) => React.Component<IPassedProps>;
-}
+import { interfaces } from './interfaces'
 
-export let InterfaceSymbols = {
-    IChat: Symbol('IChat')
-}
-
-class Chat implements IChat {
+class Chat implements interfaces.IChat {
     get Component(): new(...args: any[]) => React.Component<IPassedProps> {
         return ChatComponent
     }
 }
 
 export function init() {
-    registrar.bind<IChat>(InterfaceSymbols.IChat, Chat);
+    registrar.bind<interfaces.IChat>(interfaces.IChatSymbol, Chat);
     return getReducer();
 }

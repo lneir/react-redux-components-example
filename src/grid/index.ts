@@ -1,30 +1,22 @@
 import component from './comp';
 import * as React from 'react';
-import { IGridState, IPassedProps } from './comp';
+import { IPassedProps } from './comp';
 import getReducer from './reducer';
 import * as actions from './actions';
 
 import registrar from '../registrar';
 
 // somewhat ackward method to re-export actionTypes which contains interfaces
-export import actionTypes = require('./actionTypes');
+// export import actionTypes = require('./actionTypes');
 
-export interface IGrid {
-    open(streamId: string): actionTypes.IOpenAction;
-    close(streamId: string): actionTypes.ICloseAction;
-    readonly Component: new(...args: any[]) => React.Component<IPassedProps>;
-}
+import { interfaces } from './interfaces';
 
-export let InterfaceSymbols = {
-    IGrid: Symbol('IGrid')
-}
-
-class Grid implements IGrid {
-    open(streamId: string): actionTypes.IOpenAction {
+class Grid implements interfaces.IGrid {
+    open(streamId: string): interfaces.IOpenAction {
         return actions.open(streamId);
     }
 
-    close(streamId: string): actionTypes.ICloseAction {
+    close(streamId: string): interfaces.ICloseAction {
         return actions.close(streamId);
     }
 
@@ -34,6 +26,6 @@ class Grid implements IGrid {
 }
 
 export function init() {
-    registrar.bind<IGrid>(InterfaceSymbols.IGrid, Grid);
+    registrar.bind<interfaces.IGrid>(interfaces.IGridSymbol, Grid);
     return getReducer();
 }

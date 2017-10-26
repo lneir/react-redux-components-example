@@ -7,6 +7,9 @@ import * as Nav from './navigation';
 import * as Grid from './grid';
 import * as Chat from './chat';
 
+import { interfaces as gridInterfaces } from './grid/interfaces';
+import { interfaces as NavInterfaces } from './navigation/interfaces';
+
 import registrar from './registrar';
 
 let gridReducer = Grid.init();
@@ -17,8 +20,8 @@ const reducers = Object.assign({}, navReducer, gridReducer, chatReducer)
 const rootReducer = combineReducers(reducers);
 let store = createStore(rootReducer);
 
-let grid = registrar.get<Grid.IGrid>(Grid.InterfaceSymbols.IGrid);
-let nav = registrar.get<Nav.INavigation>(Nav.InterfaceSymbols.INavigation);
+let grid = registrar.get<gridInterfaces.IGrid>(gridInterfaces.IGridSymbol);
+let nav = registrar.get<NavInterfaces.INavigation>(NavInterfaces.INavigationSymbol);
 
 var navEl = document.getElementById('nav');
 
