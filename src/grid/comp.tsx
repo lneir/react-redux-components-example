@@ -3,38 +3,45 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { chatsSelector } from './selectors';
 
-import { component as Chat } from '../chat';
+// import { component as Chat } from '../chat';
+import * as Chat from '../chat';
 
-export interface PassedProps {
+import registrar from '../registrar';
+
+export interface IPassedProps {
 }
 
-interface StateProps {
+interface IStateProps {
     chats: Array<string>;
 }
 
-interface DispatchProps {
+interface IDispatchProps {
 }
 
-type GridProps = PassedProps & StateProps & DispatchProps;
+export type IGridProps = IPassedProps & IStateProps & IDispatchProps;
 
-interface GridState {
+export interface IGridState {
 }
 
-const mapStateToProps = (state: any, ownProps: PassedProps): StateProps => {
+const mapStateToProps = (state: any, ownProps: IPassedProps): IStateProps => {
     return {
         chats: chatsSelector(state)
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => {
     return {
     }
 };
 
-class Grid extends React.Component<GridProps, GridState> {
-    constructor(props: GridProps) {
+class Grid extends React.Component<IGridProps, IGridState> {
+    private chat: Chat.IChat;
+    constructor(props: IGridProps) {
         super(props);
+        this.chat = registrar.get<Chat.IChat>(Chat.InterfaceSymbols.IChat);
     }
+
+    // private chat:IChat;
 
     render() {
         var divStyle = {
@@ -57,10 +64,10 @@ class Grid extends React.Component<GridProps, GridState> {
     getChats() {
         var chats = [];
         this.props.chats.forEach((streamId) => {
-            chats.push(<Chat key={streamId} streamId={streamId}/>);
+            chats.push(<this.chat.Component key={streamId} streamId={streamId}/>);
         })
         return chats;
     }
 }
-
+// export default Grid;
 export default connect(mapStateToProps, mapDispatchToProps)(Grid);

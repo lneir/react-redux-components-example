@@ -1,32 +1,39 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import * as grid from '../grid';
-interface PassedProps {
+import * as Grid from '../grid';
+import registrar from '../registrar';
+import shallowEqual from '../shallowEqual';
+
+let grid;
+
+export interface IPassedProps {
     streamId: string;
 }
 
-interface StateProps {
+interface IStateProps {
 }
 
-interface DispatchProps {
-    closeAction(streamId: string): grid.actionTypes.ICloseAction
+interface IDispatchProps {
+    closeAction(streamId: string): Grid.actionTypes.ICloseAction
 }
 
-type ChatProps = PassedProps & StateProps & DispatchProps;
+
+type ChatProps = IPassedProps & IStateProps & IDispatchProps;
 
 interface ChatState {
 }
 
-const mapStateToProps = (state: any, ownProps: PassedProps): StateProps => {
-    return { }
-}
+// const mapStateToProps = (state: any, ownProps: IPassedProps): IStateProps => {
+//     return { }
+// }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => {
-    return {
-        closeAction: (streamId: string) => dispatch(grid.actions.close(streamId))
-    }
-};
+// const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => {
+//     debugger;
+//     return {
+//         closeAction: (streamId: string) => dispatch(grid.close(streamId))
+//     }
+// };
 
 class Chat extends React.Component<ChatProps, ChatState> {
     constructor(props: ChatProps) {
@@ -52,4 +59,24 @@ class Chat extends React.Component<ChatProps, ChatState> {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+function selectorFactory(dispatch) {
+    let ownProps = {}
+    let result = {}
+    let grid = registrar.get<Grid.IGrid>(Grid.InterfaceSymbols.IGrid);
+
+    const actions = {
+        closeAction: (streamId: string) => dispatch(grid.close(streamId))
+    }
+    return (nextState, nextOwnProps) => {
+        const nextResult = { ...nextOwnProps, ...actions }
+        ownProps = nextOwnProps
+        if (!shallowEqual(result, nextResult)) {
+            result = nextResult;
+        }
+        return result
+    }
+}
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+
+export default connectAdvanced(selectorFactory)(Chat)
