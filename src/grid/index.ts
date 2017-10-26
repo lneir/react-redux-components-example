@@ -3,7 +3,6 @@ import * as React from 'react';
 import { IPassedProps } from './comp';
 import getReducer from './reducer';
 import * as actions from './actions';
-
 import registrar from '../registrar';
 
 // somewhat ackward method to re-export actionTypes which contains interfaces
@@ -25,7 +24,8 @@ class Grid implements interfaces.IGrid {
     }
 }
 
+registrar.bind<interfaces.IGrid>(interfaces.IGridSymbol, Grid);
+
 export function init() {
-    registrar.bind<interfaces.IGrid>(interfaces.IGridSymbol, Grid);
     return getReducer();
 }

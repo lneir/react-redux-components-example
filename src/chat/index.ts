@@ -1,9 +1,7 @@
 import ChatComponent from './comp';
 import { IPassedProps } from './comp';
 import getReducer from './reducer';
-
 import registrar from '../registrar';
-
 import { interfaces } from './interfaces'
 
 class Chat implements interfaces.IChat {
@@ -12,7 +10,8 @@ class Chat implements interfaces.IChat {
     }
 }
 
+registrar.bind<interfaces.IChat>(interfaces.IChatSymbol, Chat);
+
 export function init() {
-    registrar.bind<interfaces.IChat>(interfaces.IChatSymbol, Chat);
     return getReducer();
 }
