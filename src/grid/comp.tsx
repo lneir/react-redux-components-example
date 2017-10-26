@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { chatsSelector } from './selectors';
 
-import { interfaces as chatInterfaces} from '../chat/interfaces';
+import { interfaces } from '../sdk/interfaces';
 
 import registrar from '../registrar';
-
-export interface IPassedProps {
-}
 
 interface IStateProps {
     chats: Array<string>;
@@ -17,12 +14,12 @@ interface IStateProps {
 interface IDispatchProps {
 }
 
-export type IGridProps = IPassedProps & IStateProps & IDispatchProps;
+export type IGridProps = interfaces.grid.IPassedProps & IStateProps & IDispatchProps;
 
 export interface IGridState {
 }
 
-const mapStateToProps = (state: any, ownProps: IPassedProps): IStateProps => {
+const mapStateToProps = (state: any, ownProps: interfaces.grid.IPassedProps): IStateProps => {
     return {
         chats: chatsSelector(state)
     }
@@ -34,10 +31,10 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => {
 };
 
 class Grid extends React.Component<IGridProps, IGridState> {
-    private chat: chatInterfaces.IChat;
+    private chat: interfaces.chat.IChat;
     constructor(props: IGridProps) {
         super(props);
-        this.chat = registrar.get<chatInterfaces.IChat>(chatInterfaces.IChatSymbol);
+        this.chat = registrar.get<interfaces.chat.IChat>(interfaces.chat.IChatSymbol);
     }
 
     // private chat:IChat;

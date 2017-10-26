@@ -1,5 +1,5 @@
+import { interfaces } from '../sdk/interfaces'
 import { STATE_NAME } from './constants';
-import { interfaces } from './interfaces'
 
 interface State {
     chats: Array<string>;
@@ -9,7 +9,7 @@ const INITIAL_STATE: State = {
     chats: []
 }
 
-function doOpen(s: State, action: interfaces.IOpenAction) {
+function doOpen(s: State, action: interfaces.grid.IOpenAction) {
     if (s.chats.indexOf(action.value) !== -1) {
         return s;
     }
@@ -19,7 +19,7 @@ function doOpen(s: State, action: interfaces.IOpenAction) {
     };
 }
 
-function doClose(s: State, action: interfaces.ICloseAction) {
+function doClose(s: State, action: interfaces.grid.ICloseAction) {
     var newChats = s.chats.filter((name) => {
         return name !== action.value
     });
@@ -28,11 +28,11 @@ function doClose(s: State, action: interfaces.ICloseAction) {
     };
 }
 
-function gridReducer(s: State = INITIAL_STATE, action: interfaces.ActionTypes) {
+function gridReducer(s: State = INITIAL_STATE, action: interfaces.grid.ActionTypes) {
     switch(action.type) {
-        case interfaces.ActionTypeKeys.OPEN:
+        case interfaces.grid.ActionTypeKeys.OPEN:
             return doOpen(s, action);
-        case interfaces.ActionTypeKeys.CLOSE:
+        case interfaces.grid.ActionTypeKeys.CLOSE:
             return doClose(s, action);
         default:
             return s;

@@ -1,16 +1,15 @@
 import ChatComponent from './comp';
-import { IPassedProps } from './comp';
 import getReducer from './reducer';
 import registrar from '../registrar';
-import { interfaces } from './interfaces'
+import { interfaces } from '../sdk/interfaces'
 
-class Chat implements interfaces.IChat {
-    get Component(): new(...args: any[]) => React.Component<IPassedProps> {
+class Chat implements interfaces.chat.IChat {
+    get Component(): new(...args: any[]) => React.Component<interfaces.chat.IPassedProps> {
         return ChatComponent
     }
 }
 
-registrar.bind<interfaces.IChat>(interfaces.IChatSymbol, Chat);
+registrar.bind<interfaces.chat.IChat>(interfaces.chat.IChatSymbol, Chat);
 
 export function init() {
     return getReducer();

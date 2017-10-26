@@ -1,4 +1,4 @@
-import { interfaces } from './interfaces'
+import { interfaces } from '../sdk/interfaces'
 import { STATE_NAME } from './constants';
 
 interface State {
@@ -7,7 +7,7 @@ interface State {
 const INITIAL_STATE: State = {
 }
 
-function chatReducer(s: State = INITIAL_STATE, action: interfaces.ActionTypes) {
+function chatReducer(s: State = INITIAL_STATE, action: interfaces.chat.ActionTypes) {
     return s;
 }
 
