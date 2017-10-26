@@ -27,32 +27,19 @@ var registrar = new Registrar();
 
 export default registrar;
 
-// var r = new Registar();
-//
+// example:
 // interface ITest {
 //     hello: string;
-// }
-//
-// interface ITest2 {
-//     help: string;
 // }
 //
 // class Test implements ITest {
 //     hello: 'test'
 // }
 //
-// class Test2 implements ITest {
-//     hello: 'test2'
-// }
-//
-// class Test3 implements ITest {
-//     help: 'test'
-// }
-//
 // export let InterfaceSymbols = {
-//     IGrid: Symbol('IGrid'),
-//     IChat: Symbol('IChat')
+//     ITest: Symbol('ITest'),
 // }
 //
-// r.bind<ITest>(InterfaceSymbols.IChat, Test2);
-// let test2 = r.get<ITest>(InterfaceSymbols.IGrid);
+// registrar.bind<ITest>(InterfaceSymbols.ITest, Test);
+// let test2 = registrar.get<ITest>(InterfaceSymbols.ITest);
+// console.log(test2.hello)
