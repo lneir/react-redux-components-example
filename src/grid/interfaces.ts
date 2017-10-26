@@ -7,9 +7,6 @@ namespace interfaces {
         CLOSE = 'grid/CLOSE',
     }
 
-    // concat of all actions
-    export type ActionTypes = IOpenAction | ICloseAction;
-
     export interface IOpenAction {
         type: ActionTypeKeys.OPEN;
         value: string;
@@ -19,6 +16,9 @@ namespace interfaces {
         type: ActionTypeKeys.CLOSE;
         value: string;
     }
+
+    // concat of all actions
+    export type ActionTypes = IOpenAction | ICloseAction;
 
     export interface IGrid {
         open(streamId: string): IOpenAction;
