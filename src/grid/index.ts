@@ -4,9 +4,6 @@ import getReducer from './reducer';
 import * as actions from './actions';
 import registrar from '../registrar';
 
-// somewhat ackward method to re-export actionTypes which contains interfaces
-// export import actionTypes = require('./actionTypes');
-
 import { interfaces } from '../sdk/interfaces';
 
 class Grid implements interfaces.grid.IGrid {
