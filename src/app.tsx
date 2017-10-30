@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { getStore } from './sdk/store';
 
 import * as Nav from './navigation';
 import * as Grid from './grid';
@@ -10,14 +10,8 @@ import { interfaces } from './sdk/interfaces';
 
 import registrar from './registrar';
 
-Promise.all([ Grid.init(), Nav.init() ])
-.then((reducersResult) =>  {
-    let gridReducer = reducersResult[0];
-    let navReducer = reducersResult[1];
-
-    const reducers = Object.assign({}, navReducer, gridReducer)
-    const rootReducer = combineReducers(reducers);
-    let store = createStore(rootReducer);
+Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
+    let store = getStore();
 
     let grid = registrar.get<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol);
     let nav = registrar.get<interfaces.nav.INavigation>(interfaces.nav.INavigationSymbol);
@@ -45,4 +39,4 @@ Promise.all([ Grid.init(), Nav.init() ])
       </Provider>,
       gridEl
     );
-})
+}).catch((err) => { console.error('app failed to init with error: ' + err)});

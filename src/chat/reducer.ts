@@ -14,6 +14,7 @@ function chatReducer(s: State = INITIAL_STATE, action: interfaces.chat.ActionTyp
 // exported so combineReducer can build
 export default function() {
     return {
-        [ STATE_NAME ]: chatReducer
-    }
+        name: STATE_NAME,
+        reducer: chatReducer
+    };
 }

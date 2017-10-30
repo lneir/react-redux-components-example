@@ -14,6 +14,7 @@ function navigationReducer(s: State = INITIAL_STATE, action: interfaces.nav.Acti
 // exported so combineReducer can build
 export default function() {
     return {
-        [ STATE_NAME ]: navigationReducer
-    }
+        name: STATE_NAME,
+        reducer: navigationReducer
+    };
 }
