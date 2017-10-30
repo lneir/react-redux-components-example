@@ -1,6 +1,6 @@
 import ChatComponent from './comp';
 import getReducer from './reducer';
-import registrar from '../registrar';
+import registrar from '../sdk/registrar';
 import { interfaces } from '../sdk/interfaces'
 import * as store from '../sdk/store';
 

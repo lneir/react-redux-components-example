@@ -1,4 +1,4 @@
-import implMap from './sdk/implMap';
+import implMap from './implMap';
 
 type InterfaceIdentifier = symbol;
 
@@ -35,7 +35,7 @@ class Registrar {
             if (!this.map.get(identifier)) {
                 if (implMap[identifier]) {
                     const moduleName = implMap[identifier];
-                    import('./' + moduleName)
+                    import('../' + moduleName)
                     .then(module => {
                         return module.init();
                     }).then((reducer) => {

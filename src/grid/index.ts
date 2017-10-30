@@ -2,8 +2,8 @@ import component from './comp';
 import * as React from 'react';
 import getReducer from './reducer';
 import * as actions from './actions';
-import registrar from '../registrar';
 
+import registrar from '../sdk/registrar';
 import { interfaces } from '../sdk/interfaces';
 import * as store from '../sdk/store';
 

@@ -4,8 +4,7 @@ import { Dispatch } from 'redux';
 import { chatsSelector } from './selectors';
 
 import { interfaces } from '../sdk/interfaces';
-
-import registrar from '../registrar';
+import registrar from '../sdk/registrar';
 
 interface IStateProps {
     chats: Array<string>;

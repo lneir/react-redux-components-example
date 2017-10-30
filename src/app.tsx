@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { getStore } from './sdk/store';
 
 import * as Nav from './navigation';
 import * as Grid from './grid';
 
+import { getStore } from './sdk/store';
 import { interfaces } from './sdk/interfaces';
-
-import registrar from './registrar';
+import registrar from './sdk/registrar';
 
 Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let store = getStore();
