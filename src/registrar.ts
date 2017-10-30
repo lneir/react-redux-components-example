@@ -1,3 +1,5 @@
+import implMap from './sdk/implMap';
+
 type InterfaceIdentifier = symbol;
 
 type constructor<T> = new(...args: any[]) => T;
@@ -16,10 +18,50 @@ class Registrar {
     get<T>(identifier:InterfaceIdentifier, ...args) {
         let C = this.map.get(identifier);
         if (!C) {
-            throw new Error('No registration found for: ' + identifier.toString())
+                throw new Error('No registration found for: ' + identifier.toString());
         }
         let c = new C(args);
-        return c as T;
+        return (c as T);
+    }
+
+    /**
+     * Check if interface implementation is registered, if not then dynamically
+     * load module and init.
+     * @param  {InterfaceIdentifier} identifier [description]
+     * @return {Promise}                         [description]
+     */
+    resolveOne(identifier:InterfaceIdentifier) {
+        var pr = new Promise((resolve, reject) => {
+            if (!this.map.get(identifier)) {
+                if (implMap[identifier]) {
+                    const moduleName = implMap[identifier];
+                    import('./' + moduleName)
+                    .then(module => {
+                        return module.init();
+                    }).then((reducer) => {
+                        // ToDo: add reducer store
+                        resolve(true);
+                    })
+                    .catch(err => {
+                        reject('Can not load module: ' + moduleName);
+                    });
+                } else {
+                    reject('No implementation exists: ' + identifier.toString());
+                }
+            }
+            resolve(true);
+        });
+
+        return pr;
+    }
+
+    resolve(identifiers: Array<InterfaceIdentifier>) {
+        var promises = [];
+        identifiers.forEach((identifier) => {
+            promises.push(this.resolveOne(identifier));
+        });
+
+        return Promise.all(promises);
     }
 }
 

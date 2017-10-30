@@ -5,43 +5,44 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 
 import * as Nav from './navigation';
 import * as Grid from './grid';
-import * as Chat from './chat';
 
 import { interfaces } from './sdk/interfaces';
 
 import registrar from './registrar';
 
-let gridReducer = Grid.init();
-let chatReducer = Chat.init();
-let navReducer = Nav.init();
+Promise.all([ Grid.init(), Nav.init() ])
+.then((reducersResult) =>  {
+    let gridReducer = reducersResult[0];
+    let navReducer = reducersResult[1];
 
-const reducers = Object.assign({}, navReducer, gridReducer, chatReducer)
-const rootReducer = combineReducers(reducers);
-let store = createStore(rootReducer);
+    const reducers = Object.assign({}, navReducer, gridReducer)
+    const rootReducer = combineReducers(reducers);
+    let store = createStore(rootReducer);
 
-let grid = registrar.get<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol);
-let nav = registrar.get<interfaces.nav.INavigation>(interfaces.nav.INavigationSymbol);
+    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol);
+    let nav = registrar.get<interfaces.nav.INavigation>(interfaces.nav.INavigationSymbol);
 
-var navEl = document.getElementById('nav');
+    var navEl = document.getElementById('nav');
 
-var navItems:Array<string> = [
-    'chat1',
-    'chat2',
-    'chat3'
-];
+    var navItems:Array<string> = [
+        'chat1',
+        'chat2',
+        'chat3'
+    ];
 
-ReactDOM.render(
-  <Provider store={store}>
-    <nav.Component navItems={navItems}/>
-  </Provider>,
-  navEl
-);
+    ReactDOM.render(
+      <Provider store={store}>
+        <nav.Component navItems={navItems}/>
+      </Provider>,
+      navEl
+    );
 
-var gridEl = document.getElementById('grid');
+    var gridEl = document.getElementById('grid');
 
-ReactDOM.render(
-  <Provider store={store}>
-    <grid.Component/>
-  </Provider>,
-  gridEl
-);
+    ReactDOM.render(
+      <Provider store={store}>
+        <grid.Component/>
+      </Provider>,
+      gridEl
+    );
+})

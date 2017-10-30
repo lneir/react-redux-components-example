@@ -12,5 +12,8 @@ class Chat implements interfaces.chat.IChat {
 registrar.bind<interfaces.chat.IChat>(interfaces.chat.IChatSymbol, Chat);
 
 export function init() {
-    return getReducer();
+    return registrar.resolve([ interfaces.grid.IGridSymbol ])
+    .then(() => {
+        return getReducer();
+    });
 }

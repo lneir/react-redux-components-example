@@ -12,5 +12,8 @@ class Navigation implements interfaces.nav.INavigation {
 registrar.bind<interfaces.nav .INavigation>(interfaces.nav.INavigationSymbol, Navigation);
 
 export function init() {
-    return getReducer();
+    return registrar.resolve([ interfaces.grid.IGridSymbol ])
+    .then(() => {
+        return getReducer();
+    });
 }
