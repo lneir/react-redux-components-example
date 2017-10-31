@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import * as Nav from './navigation';
-import * as Grid from './grid';
+import * as Nav from './comps/navigation';
+import * as Grid from './comps/grid';
 
 import { getStore } from './sdk/store';
 import { interfaces } from './sdk/interfaces';

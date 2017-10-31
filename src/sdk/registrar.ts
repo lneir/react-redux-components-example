@@ -32,24 +32,27 @@ class Registrar {
      */
     resolveOne(identifier:InterfaceIdentifier) {
         var pr = new Promise((resolve, reject) => {
-            if (!this.map.get(identifier)) {
-                if (implMap[identifier]) {
-                    const moduleName = implMap[identifier];
-                    import('../' + moduleName)
-                    .then(module => {
-                        return module.init();
-                    }).then((reducer) => {
-                        // ToDo: add reducer store
-                        resolve(true);
-                    })
-                    .catch(err => {
-                        reject('Can not load module: ' + moduleName);
-                    });
-                } else {
-                    reject('No implementation exists: ' + identifier.toString());
-                }
+            if (this.map.get(identifier)) {
+                resolve(true);
+                return;
             }
-            resolve(true);
+            if (implMap[identifier]) {
+                const moduleName = implMap[identifier];
+                // https://github.com/jquintozamora/react-typescript-webpack2-cssModules-postCSS/blob/master/app/src/components/AsyncLoading/AsyncLoading.tsx#L57-L68
+                // use typescript dynamic import to async load module
+                // import(/* webpackChunkName: "chat" */ "../chat")
+                import('../comps/' + moduleName)
+                .then(module => {
+                    return module.init();
+                }).then((reducer) => {
+                    resolve(true);
+                })
+                .catch(err => {
+                    reject('Can not load module: ' + moduleName);
+                });
+            } else {
+                reject('No implementation exists: ' + identifier.toString());
+            }
         });
 
         return pr;

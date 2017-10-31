@@ -5,7 +5,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
 	entry: {
 		'application': './src/app.tsx',
-		'navigation': './src/navigation/index.ts',
 		'common-dependencies': [
 			/* Just one version of react, too. react-router is fine to have multiple versions of,
 			 * though, so no need to put it in common dependencies
