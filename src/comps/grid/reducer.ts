@@ -1,4 +1,4 @@
-import { interfaces } from '../../sdk/interfaces'
+import { interfaces } from '../../sdk';
 import { STATE_NAME } from './constants';
 
 interface State {

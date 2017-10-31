@@ -2,9 +2,7 @@ import * as React from 'react';
 import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 
-import { interfaces } from '../../sdk/interfaces';
-import registrar from '../../sdk/registrar';
-import shallowEqual from '../../utils/shallowEqual';
+import { interfaces, registrar, shallowEqual } from '../../sdk';
 
 interface IStateProps {
 }

@@ -5,12 +5,10 @@ import { Provider } from 'react-redux';
 import * as Nav from './comps/navigation';
 import * as Grid from './comps/grid';
 
-import { getStore } from './sdk/store';
-import { interfaces } from './sdk/interfaces';
-import registrar from './sdk/registrar';
+import { interfaces, registrar, store } from './sdk';
 
 Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
-    let store = getStore();
+    let str = store.getStore();
 
     let grid = registrar.get<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol);
     let nav = registrar.get<interfaces.nav.INavigation>(interfaces.nav.INavigationSymbol);
@@ -24,7 +22,7 @@ Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     ];
 
     ReactDOM.render(
-      <Provider store={store}>
+      <Provider store={str}>
         <nav.Component navItems={navItems}/>
       </Provider>,
       navEl
@@ -33,7 +31,7 @@ Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let gridEl = document.getElementById('grid');
 
     ReactDOM.render(
-      <Provider store={store}>
+      <Provider store={str}>
         <grid.Component/>
       </Provider>,
       gridEl
