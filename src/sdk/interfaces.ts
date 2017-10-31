@@ -2,11 +2,13 @@ import * as React from 'react';
 
 namespace interfaces {
 
+    export type InterfaceIdentifier = symbol;
+
     export namespace chat {
         // concat of all actions
         export type ActionTypes = null;
 
-        export const IChatSymbol = Symbol('IChatSymbol');
+        export const IChatSymbol:InterfaceIdentifier = Symbol('IChatSymbol');
 
         export interface IPassedProps {
             streamId: string;
@@ -36,7 +38,7 @@ namespace interfaces {
         // concat of all actions
         export type ActionTypes = IOpenAction | ICloseAction;
 
-        export const IGridSymbol = Symbol('IGrid');
+        export const IGridSymbol:InterfaceIdentifier = Symbol('IGrid');
 
         export interface IPassedProps {
         }
@@ -52,7 +54,7 @@ namespace interfaces {
         // concat of all actions
         export type ActionTypes = null;
 
-        export const INavigationSymbol = Symbol('INavigationSymbol');
+        export const INavigationSymbol:InterfaceIdentifier = Symbol('INavigationSymbol');
 
         export interface IPassedProps {
             navItems: Array<string>;

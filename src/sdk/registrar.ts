@@ -1,6 +1,7 @@
-import implMap from './implMap';
+import loadComponent from './loadComponent';
+import { interfaces } from './interfaces'
 
-type InterfaceIdentifier = symbol;
+type InterfaceIdentifier = interfaces.InterfaceIdentifier;
 
 type constructor<T> = new(...args: any[]) => T;
 
@@ -25,10 +26,10 @@ class Registrar {
     }
 
     /**
-     * Check if interface implementation is registered, if not then dynamically
+     * Checks if interface implementation is registered, if not then dynamically
      * load module and init.
-     * @param  {InterfaceIdentifier} identifier [description]
-     * @return {Promise}                         [description]
+     * @param  {InterfaceIdentifier} identifier  Symbol interface
+     * @return {Promise}                         Promise resolved when component is loaded, else rejected.
      */
     resolveOne(identifier:InterfaceIdentifier) {
         var pr = new Promise((resolve, reject) => {
@@ -36,23 +37,11 @@ class Registrar {
                 resolve(true);
                 return;
             }
-            if (implMap[identifier]) {
-                const moduleName = implMap[identifier];
-                // https://github.com/jquintozamora/react-typescript-webpack2-cssModules-postCSS/blob/master/app/src/components/AsyncLoading/AsyncLoading.tsx#L57-L68
-                // use typescript dynamic import to async load module
-                // import(/* webpackChunkName: "chat" */ "../chat")
-                import('../comps/' + moduleName)
-                .then(module => {
-                    return module.init();
-                }).then((reducer) => {
-                    resolve(true);
-                })
-                .catch(err => {
-                    reject('Can not load module: ' + moduleName);
-                });
-            } else {
-                reject('No implementation exists: ' + identifier.toString());
-            }
+            loadComponent(identifier)
+            .then(() => { resolve(true); })
+            .catch(err => {
+                reject('Can not load module: ' + identifier.toString());
+            });
         });
 
         return pr;
