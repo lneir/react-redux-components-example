@@ -35,7 +35,7 @@ class Navigation extends React.Component<NavProps, NavState> {
     }
 
     render() {
-        var divStyle = {
+        let divStyle = {
             border: '2px solid black',
             margin: '2px',
             padding: '2px'

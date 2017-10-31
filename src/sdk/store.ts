@@ -13,7 +13,7 @@ let store = createStore(rootReducer);
  */
 export function addReducer(name:string, reducer) {
     reducers[name] = reducer;
-    var newReducers = combineReducers(reducers);
+    let newReducers = combineReducers(reducers);
     store.replaceReducer(newReducers);
 }
 

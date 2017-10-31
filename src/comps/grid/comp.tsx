@@ -39,7 +39,7 @@ class Grid extends React.Component<IGridProps, IGridState> {
     // private chat:IChat;
 
     render() {
-        var divStyle = {
+        let divStyle = {
             border: '2px solid black',
             margin: '2px',
             padding: '2px'
@@ -57,7 +57,7 @@ class Grid extends React.Component<IGridProps, IGridState> {
     }
 
     getChats() {
-        var chats = [];
+        let chats = [];
         this.props.chats.forEach((streamId) => {
             chats.push(<this.chat.Component key={streamId} streamId={streamId}/>);
         })

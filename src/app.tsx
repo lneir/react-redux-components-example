@@ -15,9 +15,9 @@ Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let grid = registrar.get<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol);
     let nav = registrar.get<interfaces.nav.INavigation>(interfaces.nav.INavigationSymbol);
 
-    var navEl = document.getElementById('nav');
+    let navEl = document.getElementById('nav');
 
-    var navItems:Array<string> = [
+    let navItems:Array<string> = [
         'chat1',
         'chat2',
         'chat3'
@@ -30,7 +30,7 @@ Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
       navEl
     );
 
-    var gridEl = document.getElementById('grid');
+    let gridEl = document.getElementById('grid');
 
     ReactDOM.render(
       <Provider store={store}>

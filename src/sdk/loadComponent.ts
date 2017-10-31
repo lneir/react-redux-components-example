@@ -4,18 +4,17 @@ type InterfaceIdentifier = interfaces.InterfaceIdentifier;
 
 // map from key: interface symbol to component that implements interface.
 // Provides a method to dynamically load and init a component.
-var implMap = {
-}
+let implMap = {};
 
-implMap[interfaces.chat.IChatSymbol] = function() {
-    return import(/* webpackChunkName: "chat" */ '../comps/chat');
-}
-implMap[interfaces.grid.IGridSymbol] = function() {
-    return import(/* webpackChunkName: "grid" */ '../comps/grid');
-}
-implMap[interfaces.nav.INavigationSymbol] = function() {
-    return import(/* webpackChunkName: "navigation" */ '../comps/navigation');
-}
+// each return a promise that will dynamically load component
+implMap[interfaces.chat.IChatSymbol] = () =>
+    import(/* webpackChunkName: "chat" */ '../comps/chat');
+
+implMap[interfaces.grid.IGridSymbol] = () =>
+    import(/* webpackChunkName: "grid" */ '../comps/grid');
+
+implMap[interfaces.nav.INavigationSymbol] = () =>
+    import(/* webpackChunkName: "navigation" */ '../comps/navigation');
 
 export default function loadComponent(identifier:InterfaceIdentifier) {
     const getComponent = implMap[identifier];

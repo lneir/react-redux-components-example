@@ -14,7 +14,7 @@ class Chat implements interfaces.chat.IChat {
 registrar.bind<interfaces.chat.IChat>(interfaces.chat.IChatSymbol, Chat);
 
 export function init() {
-    var reducer = getReducer();
+    let reducer = getReducer();
     store.addReducer(reducer.name, reducer.reducer);
 
     return registrar.resolve([ interfaces.grid.IGridSymbol ])

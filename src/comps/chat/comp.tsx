@@ -35,7 +35,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
     }
 
     render() {
-        var divStyle = {
+        let divStyle = {
             border: '2px solid black',
             margin: '2px',
             padding: '2px'

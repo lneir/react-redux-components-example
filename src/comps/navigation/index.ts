@@ -13,7 +13,7 @@ class Navigation implements interfaces.nav.INavigation {
 registrar.bind<interfaces.nav .INavigation>(interfaces.nav.INavigationSymbol, Navigation);
 
 export function init() {
-    var reducer = getReducer();
+    let reducer = getReducer();
     store.addReducer(reducer.name, reducer.reducer);
 
     return registrar.resolve([ interfaces.grid.IGridSymbol ]);

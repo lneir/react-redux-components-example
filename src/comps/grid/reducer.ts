@@ -13,14 +13,14 @@ function doOpen(s: State, action: interfaces.grid.IOpenAction) {
     if (s.chats.indexOf(action.value) !== -1) {
         return s;
     }
-    var newChats = s.chats.concat([action.value]);
+    let newChats = s.chats.concat([action.value]);
     return {
         chats: newChats
     };
 }
 
 function doClose(s: State, action: interfaces.grid.ICloseAction) {
-    var newChats = s.chats.filter((name) => {
+    let newChats = s.chats.filter((name) => {
         return name !== action.value
     });
     return {

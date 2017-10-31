@@ -32,7 +32,7 @@ class Registrar {
      * @return {Promise}                         Promise resolved when component is loaded, else rejected.
      */
     resolveOne(identifier:InterfaceIdentifier) {
-        var pr = new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             if (this.map.get(identifier)) {
                 resolve(true);
                 return;
@@ -43,12 +43,10 @@ class Registrar {
                 reject('Can not load module: ' + identifier.toString());
             });
         });
-
-        return pr;
     }
 
     resolve(identifiers: Array<InterfaceIdentifier>) {
-        var promises = [];
+        let promises = [];
         identifiers.forEach((identifier) => {
             promises.push(this.resolveOne(identifier));
         });
@@ -57,7 +55,7 @@ class Registrar {
     }
 }
 
-var registrar = new Registrar();
+const registrar = new Registrar();
 
 export default registrar;
 
