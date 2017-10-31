@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { chatsSelector } from './selectors';
 
-import { interfaces } from '../sdk/interfaces';
-
-import registrar from '../registrar';
+import { interfaces } from '../../sdk/interfaces';
+import registrar from '../../sdk/registrar';
 
 interface IStateProps {
     chats: Array<string>;

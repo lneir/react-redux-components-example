@@ -2,9 +2,10 @@ import component from './comp';
 import * as React from 'react';
 import getReducer from './reducer';
 import * as actions from './actions';
-import registrar from '../registrar';
 
-import { interfaces } from '../sdk/interfaces';
+import registrar from '../../sdk/registrar';
+import { interfaces } from '../../sdk/interfaces';
+import * as store from '../../sdk/store';
 
 class Grid implements interfaces.grid.IGrid {
     open(streamId: string): interfaces.grid.IOpenAction {
@@ -23,5 +24,8 @@ class Grid implements interfaces.grid.IGrid {
 registrar.bind<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol, Grid);
 
 export function init() {
-    return getReducer();
+    var reducer = getReducer();
+    store.addReducer(reducer.name, reducer.reducer);
+
+    return registrar.resolve([ interfaces.chat.IChatSymbol ])
 }

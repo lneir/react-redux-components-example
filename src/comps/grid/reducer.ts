@@ -1,4 +1,4 @@
-import { interfaces } from '../sdk/interfaces'
+import { interfaces } from '../../sdk/interfaces'
 import { STATE_NAME } from './constants';
 
 interface State {
@@ -42,6 +42,7 @@ function gridReducer(s: State = INITIAL_STATE, action: interfaces.grid.ActionTyp
 // exported so combineReducer can build
 export default function() {
     return {
-        [ STATE_NAME ]: gridReducer
-    }
+        name: STATE_NAME,
+        reducer: gridReducer
+    };
 }
