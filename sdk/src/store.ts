@@ -1,10 +1,10 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { Store, createStore, applyMiddleware, compose, combineReducers } from 'redux';
 
 let reducers = {
     dummy: () => ({})
 };
 const rootReducer = combineReducers(reducers);
-let store = createStore(rootReducer);
+let str = createStore(rootReducer);
 
 /**
  * Allow dynamically added new reducers.
@@ -14,9 +14,9 @@ let store = createStore(rootReducer);
 export function addReducer(name:string, reducer) {
     reducers[name] = reducer;
     let newReducers = combineReducers(reducers);
-    store.replaceReducer(newReducers);
+    str.replaceReducer(newReducers);
 }
 
 export function getStore() {
-    return store;
+    return str;
 }

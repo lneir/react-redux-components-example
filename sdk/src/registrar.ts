@@ -1,11 +1,11 @@
 import loadComponent from './loadComponent';
 import { interfaces } from './interfaces'
 
-type InterfaceIdentifier = interfaces.InterfaceIdentifier;
+export type InterfaceIdentifier = interfaces.InterfaceIdentifier;
 
-type constructor<T> = new(...args: any[]) => T;
+export type constructor<T> = new(...args: any[]) => T;
 
-class Registrar {
+export class Registrar {
     private map: Map<InterfaceIdentifier,any>;
 
     constructor() {

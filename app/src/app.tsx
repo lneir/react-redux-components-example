@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import * as Nav from './comps/navigation';
-import * as Grid from './comps/grid';
+import * as Nav from 'navigation';
+import * as Grid from 'grid';
 
-import { interfaces, registrar, store } from './sdk';
+import { interfaces, registrar, store } from 'sdk';
 
 Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let str = store.getStore();

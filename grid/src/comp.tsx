@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { chatsSelector } from './selectors';
 
-import { interfaces, registrar, store } from '../../sdk';
+import { interfaces, registrar, store } from 'sdk';
 
-interface IStateProps {
+export interface IStateProps {
     chats: Array<string>;
 }
 
-interface IDispatchProps {
+export interface IDispatchProps {
 }
 
 export type IGridProps = interfaces.grid.IPassedProps & IStateProps & IDispatchProps;

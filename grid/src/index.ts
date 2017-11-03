@@ -3,7 +3,7 @@ import * as React from 'react';
 import getReducer from './reducer';
 import * as actions from './actions';
 
-import { interfaces, registrar, store } from '../../sdk';
+import { interfaces, registrar, store } from 'sdk';
 
 class Grid implements interfaces.grid.IGrid {
     open(streamId: string): interfaces.grid.IOpenAction {

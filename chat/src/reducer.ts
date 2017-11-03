@@ -1,13 +1,13 @@
-import { interfaces } from '../../sdk';
+import { interfaces } from 'sdk';
 import { STATE_NAME } from './constants';
 
-interface State {
+export interface State {
 }
 
 const INITIAL_STATE: State = {
 }
 
-function navigationReducer(s: State = INITIAL_STATE, action: interfaces.nav.ActionTypes) {
+function chatReducer(s: State = INITIAL_STATE, action: interfaces.chat.ActionTypes) {
     return s;
 }
 
@@ -15,6 +15,6 @@ function navigationReducer(s: State = INITIAL_STATE, action: interfaces.nav.Acti
 export default function() {
     return {
         name: STATE_NAME,
-        reducer: navigationReducer
+        reducer: chatReducer
     };
 }

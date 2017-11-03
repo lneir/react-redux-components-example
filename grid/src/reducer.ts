@@ -1,7 +1,7 @@
-import { interfaces } from '../../sdk';
+import { interfaces } from 'sdk';
 import { STATE_NAME } from './constants';
 
-interface State {
+export interface State {
     chats: Array<string>;
 }
 

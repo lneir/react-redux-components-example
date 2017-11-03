@@ -1,6 +1,6 @@
 import NavigationComponent from './comp';
 import getReducer from './reducer';
-import { interfaces, registrar, store } from '../../sdk';
+import { interfaces, registrar, store } from 'sdk';
 
 class Navigation implements interfaces.nav.INavigation {
     get Component(): new(...args: any[]) => React.Component<interfaces.nav.IPassedProps> {

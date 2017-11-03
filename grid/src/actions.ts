@@ -1,5 +1,5 @@
 import { ActionCreator } from 'redux';
-import { interfaces } from '../../sdk';
+import { interfaces } from 'sdk';
 
 export function open(streamId: string) : interfaces.grid.IOpenAction {
     return {

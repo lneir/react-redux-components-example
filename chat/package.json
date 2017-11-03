@@ -1,0 +1,40 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "run": "ts-node ./src/index.ts",
+    "prepublishOnly": "tsc -p ./ --outDir dist/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "16.0.15",
+    "@types/react-dom": "16.0.2",
+    "@types/react-redux": "5.0.10",
+    "@types/redux-actions": "2.2.2",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.16",
+    "http-server": "^0.10.0",
+    "ts-loader": "^2.3.2",
+    "typescript": "^2.4.2",
+    "webpack": "^3.4.1",
+    "webpack-dev-server": "^2.8.2"
+  },
+  "dependencies": {
+    "react": "16.0.0",
+    "react-dom": "16.0.0",
+    "react-redux": "5.0.6",
+    "redux": "3.7.2",
+    "reselect": "3.0.1",
+    "redux-thunk": "2.2.0",
+    "sdk": "../sdk"
+  }
+}

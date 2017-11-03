@@ -1,7 +1,7 @@
 import ChatComponent from './comp';
 import getReducer from './reducer';
 
-import { interfaces, registrar, store } from '../../sdk';
+import { interfaces, registrar, store } from 'sdk';
 
 
 class Chat implements interfaces.chat.IChat {
