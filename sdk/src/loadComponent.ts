@@ -7,13 +7,13 @@ import { interfaces } from './interfaces';
 let implMap = {};
 
 // each return a promise that will dynamically load component
-implMap[interfaces.chat.IChatSymbol] = () =>
+implMap[interfaces.Symbols.IChat] = () =>
     import(/* webpackChunkName: "chat" */ 'chat');
 
-implMap[interfaces.grid.IGridSymbol] = () =>
+implMap[interfaces.Symbols.IGrid] = () =>
     import(/* webpackChunkName: "grid" */ 'grid');
 
-implMap[interfaces.nav.INavigationSymbol] = () =>
+implMap[interfaces.Symbols.INavigation] = () =>
     import(/* webpackChunkName: "navigation" */ 'navigation');
 
 export default function loadComponent(identifier:symbol) {

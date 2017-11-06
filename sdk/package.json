@@ -29,14 +29,15 @@
     "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
+    "chat": "../chat",
+    "grid": "../grid",
+    "navigation": "../navigation",
     "react": "16.0.0",
     "react-dom": "16.0.0",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
-    "reselect": "3.0.1",
     "redux-thunk": "2.2.0",
-    "chat": "../chat",
-    "grid": "../grid",
-    "navigation": "../navigation"
+    "reflect-metadata": "^0.1.10",
+    "reselect": "3.0.1"
   }
 }

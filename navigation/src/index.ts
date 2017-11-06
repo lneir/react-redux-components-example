@@ -8,11 +8,11 @@ class Navigation implements interfaces.nav.INavigation {
     }
 }
 
-registrar.bind<interfaces.nav .INavigation>(interfaces.nav.INavigationSymbol, Navigation);
+registrar.bind<interfaces.nav .INavigation>(interfaces.Symbols.INavigation, Navigation);
 
 export function init() {
     let reducer = getReducer();
     store.addReducer(reducer.name, reducer.reducer);
 
-    return registrar.resolve([ interfaces.grid.IGridSymbol ]);
+    return registrar.resolve(interfaces.nav.deps);
 }

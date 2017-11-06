@@ -66,7 +66,7 @@ class Navigation extends React.Component<NavProps, NavState> {
 function selectorFactory(dispatch) {
     let ownProps = {}
     let result = {}
-    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol);
+    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
 
     const actions = {
         openAction: (streamId: string) => dispatch(grid.open(streamId))

@@ -54,7 +54,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
 function selectorFactory(dispatch) {
     let ownProps = {}
     let result = {}
-    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol);
+    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
 
     const actions = {
         closeAction: (streamId: string) => dispatch(grid.close(streamId))

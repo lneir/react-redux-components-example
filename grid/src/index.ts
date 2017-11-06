@@ -19,11 +19,11 @@ class Grid implements interfaces.grid.IGrid {
     }
 }
 
-registrar.bind<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol, Grid);
+registrar.bind<interfaces.grid.IGrid>(interfaces.Symbols.IGrid, Grid);
 
 export function init() {
     let reducer = getReducer();
     store.addReducer(reducer.name, reducer.reducer);
 
-    return registrar.resolve([ interfaces.chat.IChatSymbol ])
+    return registrar.resolve(interfaces.grid.deps)
 }

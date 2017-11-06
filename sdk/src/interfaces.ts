@@ -4,15 +4,23 @@ namespace interfaces {
 
     export type InterfaceIdentifier = symbol;
 
+    // define Symbols for each interface below.
+    export const Symbols = {
+        IChat: Symbol('IChatSymbol'),
+        IGrid: Symbol('IGridSymbol'),
+        INavigation: Symbol('INavigationSymbol')
+    }
+
     export namespace chat {
         // concat of all actions
         export type ActionTypes = null;
 
-        export const IChatSymbol:InterfaceIdentifier = Symbol('IChatSymbol');
-
         export interface IPassedProps {
             streamId: string;
         }
+
+        // define dependent interfaces
+        export const deps:Array<InterfaceIdentifier> = [ Symbols.IGrid ];
 
         export interface IChat {
             readonly Component: new(...args: any[]) => React.Component<IPassedProps>;
@@ -38,10 +46,11 @@ namespace interfaces {
         // concat of all actions
         export type ActionTypes = IOpenAction | ICloseAction;
 
-        export const IGridSymbol:InterfaceIdentifier = Symbol('IGrid');
-
         export interface IPassedProps {
         }
+
+        // define dependent interfaces
+        export const deps:Array<InterfaceIdentifier> = [ Symbols.IChat ];
 
         export interface IGrid {
             open(streamId: string): IOpenAction;
@@ -54,11 +63,12 @@ namespace interfaces {
         // concat of all actions
         export type ActionTypes = null;
 
-        export const INavigationSymbol:InterfaceIdentifier = Symbol('INavigationSymbol');
-
         export interface IPassedProps {
             navItems: Array<string>;
         }
+
+        // define dependent interfaces
+        export const deps:Array<InterfaceIdentifier> = [ Symbols.IGrid ];
 
         export interface INavigation {
             readonly Component: new(...args: any[]) => React.Component<IPassedProps>;
