@@ -10,8 +10,8 @@ import { interfaces, registrar, store } from 'sdk';
 Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let str = store.getStore();
 
-    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.grid.IGridSymbol);
-    let nav = registrar.get<interfaces.nav.INavigation>(interfaces.nav.INavigationSymbol);
+    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
+    let nav = registrar.get<interfaces.nav.INavigation>(interfaces.Symbols.INavigation);
 
     let navEl = document.getElementById('nav');
 

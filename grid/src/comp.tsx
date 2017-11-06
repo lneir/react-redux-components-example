@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { chatsSelector } from './selectors';
 
-import { interfaces, registrar, store } from 'sdk';
+import { interfaces, injectInterface } from 'sdk';
 
 export interface IStateProps {
     chats: Array<string>;
@@ -29,13 +29,14 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => {
 };
 
 class Grid extends React.Component<IGridProps, IGridState> {
+
+    @injectInterface(interfaces.Symbols.IChat)
     private chat: interfaces.chat.IChat;
+
     constructor(props: IGridProps) {
         super(props);
-        this.chat = registrar.get<interfaces.chat.IChat>(interfaces.chat.IChatSymbol);
+        // this.chat = registrar.get<interfaces.chat.IChat>(interfaces.chat.IChatSymbol);
     }
-
-    // private chat:IChat;
 
     render() {
         let divStyle = {
@@ -63,5 +64,5 @@ class Grid extends React.Component<IGridProps, IGridState> {
         return chats;
     }
 }
-// export default Grid;
+
 export default connect(mapStateToProps, mapDispatchToProps)(Grid);
