@@ -19,7 +19,7 @@ class Grid implements interfaces.grid.IGrid {
     }
 }
 
-registrar.bind<interfaces.grid.IGrid>(interfaces.Symbols.IGrid, Grid);
+registrar.bind<interfaces.grid.IGrid>(interfaces.Symbols.IGrid, new Grid());
 
 export function init() {
     let reducer = getReducer();

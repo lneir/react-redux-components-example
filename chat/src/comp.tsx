@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
+import { getContext } from 'recompose';
 
-import { interfaces, registrar, shallowEqual } from 'sdk';
+import { interfaces, Registrar, registrar, shallowEqual } from 'sdk';
 
 interface IStateProps {
 }
@@ -11,21 +12,28 @@ interface IDispatchProps {
     closeAction(streamId: string): interfaces.grid.ICloseAction
 }
 
-type ChatProps = interfaces.chat.IPassedProps & IStateProps & IDispatchProps;
+interface registarViaContext {
+    registrar: interfaces.IRegistrar;
+}
+
+type updatePassedProps = interfaces.chat.IPassedProps & registarViaContext;
+
+type ChatProps = updatePassedProps & IStateProps & IDispatchProps;
 
 interface ChatState {
 }
 
-// const mapStateToProps = (state: any, ownProps: IPassedProps): IStateProps => {
-//     return { }
-// }
+const mapStateToProps = (state: any, ownProps: updatePassedProps): IStateProps => {
+    return { }
+}
 
-// const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => {
-//     debugger;
-//     return {
-//         closeAction: (streamId: string) => dispatch(grid.close(streamId))
-//     }
-// };
+const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: updatePassedProps): IDispatchProps => {
+    let registar = ownProps.registrar;
+    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
+    return {
+        closeAction: (streamId: string) => dispatch(grid.close(streamId))
+    }
+};
 
 class Chat extends React.Component<ChatProps, ChatState> {
     constructor(props: ChatProps) {
@@ -51,24 +59,29 @@ class Chat extends React.Component<ChatProps, ChatState> {
     }
 }
 
-function selectorFactory(dispatch) {
-    let ownProps = {}
-    let result = {}
-    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
-
-    const actions = {
-        closeAction: (streamId: string) => dispatch(grid.close(streamId))
-    }
-    return (nextState, nextOwnProps) => {
-        const nextResult = { ...nextOwnProps, ...actions }
-        ownProps = nextOwnProps
-        if (!shallowEqual(result, nextResult)) {
-            result = nextResult;
-        }
-        return result
-    }
-}
+// function selectorFactory(dispatch) {
+//     let ownProps = {}
+//     let result = {}
+//     let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
+//
+//     const actions = {
+//         closeAction: (streamId: string) => dispatch(grid.close(streamId))
+//     }
+//     return (nextState, nextOwnProps) => {
+//         debugger;
+//         const nextResult = { ...nextOwnProps, ...actions }
+//         ownProps = nextOwnProps
+//         if (!shallowEqual(result, nextResult)) {
+//             result = nextResult;
+//         }
+//         return result
+//     }
+// }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Chat);
 
-export default connectAdvanced(selectorFactory)(Chat)
+
+// const connectedComp = connectAdvanced(selectorFactory)(Chat);
+const connectedComp = connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default getContext({ registrar: Registrar })(connectedComp);
+// export default connectAdvanced(selectorFactory)(Chat)

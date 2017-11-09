@@ -3,9 +3,7 @@ import { interfaces } from './interfaces'
 
 export type InterfaceIdentifier = interfaces.InterfaceIdentifier;
 
-export type constructor<T> = new(...args: any[]) => T;
-
-export class Registrar {
+export class Registrar implements interfaces.IRegistrar {
     private map: Map<InterfaceIdentifier,any>;
 
     private clonedMap: Map<InterfaceIdentifier,any>;
@@ -15,8 +13,8 @@ export class Registrar {
         this.map = new Map();
     }
 
-    bind<T>(identifier:InterfaceIdentifier, constructor: constructor<T>) {
-        this.map.set(identifier, constructor)
+    bind<T>(identifier:InterfaceIdentifier, constructorOrInstance: interfaces.constructor<T> | T): void {
+        this.map.set(identifier, constructorOrInstance);
     }
 
     /**
@@ -24,19 +22,25 @@ export class Registrar {
      * and used in conjuction with snapshot/restore.
      * @param  {InterfaceIdentifier} identifier Identifier to be removed (if exists)
      */
-    unbind<T>(identifier:InterfaceIdentifier) {
+    unbind<T>(identifier:InterfaceIdentifier): void {
         if (this.map.has(identifier)) {
             this.map.delete(identifier);
         }
     }
 
-    get<T>(identifier:InterfaceIdentifier, ...args) {
-        let C = this.map.get(identifier);
-        if (!C) {
+    get<T>(identifier:InterfaceIdentifier, ...args): T {
+        let constructorOrInstance = this.map.get(identifier);
+        if (!constructorOrInstance) {
             throw new Error('No registration found for: ' + identifier.toString());
         }
-        let c = new C(args);
-        return (c as T);
+        let instance;
+        if (typeof constructorOrInstance === "function") {
+            instance = new constructorOrInstance(args);
+        } else {
+            instance = constructorOrInstance;
+        }
+
+        return (instance as T);
     }
 
     /**
@@ -45,7 +49,7 @@ export class Registrar {
      * @param  {InterfaceIdentifier} identifier  Symbol interface
      * @return {Promise}                         Promise resolved when component is loaded, else rejected.
      */
-    resolveOne(identifier:InterfaceIdentifier) {
+    private resolveOne(identifier:InterfaceIdentifier) {
         return new Promise((resolve, reject) => {
             if (this.map.get(identifier)) {
                 resolve(true);
@@ -76,7 +80,7 @@ export class Registrar {
      * ...do testing...
      * registar.restore();
      */
-    snapshot() {
+    snapshot(): void {
         if (this.waitingForRestore) {
             throw new Error('Must call restore before calling snapshot again.');
         }
@@ -84,7 +88,7 @@ export class Registrar {
         this.clonedMap = new Map(this.map);
     }
 
-    restore() {
+    restore(): void {
         if (this.clonedMap) {
             this.map = this.clonedMap;
             this.clonedMap = null;
@@ -95,9 +99,7 @@ export class Registrar {
     }
 }
 
-const registrar = new Registrar();
-
-export default registrar;
+export default new Registrar();
 
 // example:
 // interface ITest {

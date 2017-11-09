@@ -4,6 +4,8 @@ namespace interfaces {
 
     export type InterfaceIdentifier = symbol;
 
+    export type constructor<T> = new(...args: any[]) => T;
+
     // define Symbols for each interface below.
     export const Symbols = {
         IChat: Symbol('IChatSymbol'),
@@ -73,6 +75,15 @@ namespace interfaces {
         export interface INavigation {
             readonly Component: new(...args: any[]) => React.Component<IPassedProps>;
         }
+    }
+
+    export interface IRegistrar {
+        bind<T>(identifier:InterfaceIdentifier, constructorOrInstance: constructor<T>|T): void;
+        unbind<T>(identifier:InterfaceIdentifier): void;
+        get<T>(identifier:InterfaceIdentifier, ...args): T;
+        resolve(identifiers: Array<InterfaceIdentifier>): Promise<any[]>;
+        snapshot(): void;
+        restore(): void;
     }
 }
 

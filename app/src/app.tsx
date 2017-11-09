@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { withContext } from 'recompose';
 
 import * as Nav from 'navigation';
 import * as Grid from 'grid';
 
-import { interfaces, registrar, store } from 'sdk';
+import { interfaces, Registrar, registrar, store } from 'sdk';
 
 Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let str = store.getStore();
@@ -30,10 +31,13 @@ Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
 
     let gridEl = document.getElementById('grid');
 
+    const reg = registrar;
+    const NewProvider = withContext( { registrar: Registrar }, props => ({ registrar: reg }))(Provider);
+
     ReactDOM.render(
-      <Provider store={str}>
+      <NewProvider store={str}>
         <grid.Component/>
-      </Provider>,
+      </NewProvider>,
       gridEl
     );
 }).catch((err) => { console.error('app failed to init with error: ' + err)});
