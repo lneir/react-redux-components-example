@@ -3,7 +3,7 @@ import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { getContext } from 'recompose';
 
-import { interfaces, Registrar, registrar, shallowEqual } from 'sdk';
+import { interfaces, Registrar, shallowEqual } from 'sdk';
 
 interface IStateProps {
 }
@@ -28,7 +28,7 @@ const mapStateToProps = (state: any, ownProps: updatePassedProps): IStateProps =
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: updatePassedProps): IDispatchProps => {
-    let registar = ownProps.registrar;
+    let registrar:interfaces.Grid.IGrid = ownProps.registrar;
     let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
     return {
         closeAction: (streamId: string) => dispatch(grid.close(streamId))
