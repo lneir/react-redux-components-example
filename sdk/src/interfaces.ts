@@ -4,14 +4,14 @@ namespace interfaces {
 
     export type InterfaceIdentifier = symbol;
 
-    export type constructor<T> = new(...args: any[]) => T;
-
     // define Symbols for each interface below.
     export const Symbols = {
         IChat: Symbol('IChatSymbol'),
         IGrid: Symbol('IGridSymbol'),
         INavigation: Symbol('INavigationSymbol')
     }
+
+    export type constructor<T> = new(...args: any[]) => T;
 
     export namespace chat {
         // concat of all actions
@@ -81,7 +81,7 @@ namespace interfaces {
         bind<T>(identifier:InterfaceIdentifier, constructorOrInstance: constructor<T>|T): void;
         unbind<T>(identifier:InterfaceIdentifier): void;
         get<T>(identifier:InterfaceIdentifier, ...args): T;
-        resolve(identifiers: Array<InterfaceIdentifier>): Promise<any[]>;
+        resolve(identifiers: Array<InterfaceIdentifier>): Promise<Array<boolean>>;
         snapshot(): void;
         restore(): void;
     }

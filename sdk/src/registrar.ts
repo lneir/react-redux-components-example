@@ -5,7 +5,6 @@ export type InterfaceIdentifier = interfaces.InterfaceIdentifier;
 
 export class Registrar implements interfaces.IRegistrar {
     private map: Map<InterfaceIdentifier,any>;
-
     private clonedMap: Map<InterfaceIdentifier,any>;
     private waitingForRestore: boolean;
 
@@ -13,6 +12,11 @@ export class Registrar implements interfaces.IRegistrar {
         this.map = new Map();
     }
 
+    /**
+     * Binds an interface to either a constructor or instance (i.e., singleton).
+     * @param  {Sybmol} identifier  Symbol identifying the interface
+     * @param  {constructor or T} constructorOrInstance  Can be either.
+     */
     bind<T>(identifier:InterfaceIdentifier, constructorOrInstance: interfaces.constructor<T> | T): void {
         this.map.set(identifier, constructorOrInstance);
     }
@@ -28,6 +32,13 @@ export class Registrar implements interfaces.IRegistrar {
         }
     }
 
+    /**
+     * Returns an instance for a given interface. Will throw exception no
+     * registration found.
+     * @param  {Symbol} identifier  Symbol identifying the interface.
+     * @param  {Object} args  Arguments to constructor of instance.
+     * @return {T}            Instance of given interface.
+     */
     get<T>(identifier:InterfaceIdentifier, ...args): T {
         let constructorOrInstance = this.map.get(identifier);
         if (!constructorOrInstance) {
@@ -47,9 +58,9 @@ export class Registrar implements interfaces.IRegistrar {
      * Checks if interface implementation is registered, if not then dynamically
      * load module and init.
      * @param  {InterfaceIdentifier} identifier  Symbol interface
-     * @return {Promise}                         Promise resolved when component is loaded, else rejected.
+     * @return {Promise}  Promise resolved when component is loaded, else rejected.
      */
-    private resolveOne(identifier:InterfaceIdentifier) {
+    private resolveOne(identifier:InterfaceIdentifier): Promise<boolean> {
         return new Promise((resolve, reject) => {
             if (this.map.get(identifier)) {
                 resolve(true);
@@ -63,7 +74,13 @@ export class Registrar implements interfaces.IRegistrar {
         });
     }
 
-    resolve(identifiers: Array<InterfaceIdentifier>) {
+    /**
+     * Resolves an array of interfaces...if given interface is not found
+     * then attempt to dynamically load component.
+     * @param  {Array<InterfaceIdentifier>} identifiers  Array of Interfaces to be resolved.
+     * @return {Promise}  when all identifiers are resolved.
+     */
+    resolve(identifiers: Array<InterfaceIdentifier>): Promise<Array<boolean>> {
         let promises = [];
         identifiers.forEach((identifier) => {
             promises.push(this.resolveOne(identifier));
@@ -113,6 +130,9 @@ export default new Registrar();
 // export let InterfaceSymbols = {
 //     ITest: Symbol('ITest'),
 // }
+//
+// Note: in typescript use Symbols to define interface since
+// interfaces do not exist at runtime.
 //
 // registrar.bind<ITest>(InterfaceSymbols.ITest, Test);
 // let test2 = registrar.get<ITest>(InterfaceSymbols.ITest);
