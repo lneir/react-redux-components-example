@@ -3,7 +3,7 @@ import { interfaces } from './interfaces'
 
 export type InterfaceIdentifier = interfaces.InterfaceIdentifier;
 
-export class Registrar implements interfaces.IRegistrar {
+export class Registry implements interfaces.IRegistry {
     private map: Map<InterfaceIdentifier,any>;
     private clonedMap: Map<InterfaceIdentifier,any>;
     private waitingForRestore: boolean;
@@ -91,7 +91,7 @@ export class Registrar implements interfaces.IRegistrar {
 
     /**
      * snapshot and restore are intended to be used for testing purposes...
-     * registrar.snapshot();
+     * registry.snapshot();
      * registar.unbind<T1>(T1Symbol);
      * reigstar.bind<T1>(T1Symbol, mockT1);
      * ...do testing...
@@ -116,7 +116,7 @@ export class Registrar implements interfaces.IRegistrar {
     }
 }
 
-export default new Registrar();
+export default new Registry();
 
 // example:
 // interface ITest {
@@ -134,6 +134,6 @@ export default new Registrar();
 // Note: in typescript use Symbols to define interface since
 // interfaces do not exist at runtime.
 //
-// registrar.bind<ITest>(InterfaceSymbols.ITest, Test);
-// let test2 = registrar.get<ITest>(InterfaceSymbols.ITest);
+// registry.bind<ITest>(InterfaceSymbols.ITest, Test);
+// let test2 = registry.get<ITest>(InterfaceSymbols.ITest);
 // console.log(test2.hello)

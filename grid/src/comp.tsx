@@ -35,7 +35,7 @@ class Grid extends React.Component<IGridProps, IGridState> {
 
     constructor(props: IGridProps) {
         super(props);
-        // this.chat = registrar.get<interfaces.chat.IChat>(interfaces.chat.IChatSymbol);
+        // this.chat = registry.get<interfaces.chat.IChat>(interfaces.chat.IChatSymbol);
     }
 
     render() {

@@ -77,7 +77,7 @@ namespace interfaces {
         }
     }
 
-    export interface IRegistrar {
+    export interface IRegistry {
         bind<T>(identifier:InterfaceIdentifier, constructorOrInstance: constructor<T>|T): void;
         unbind<T>(identifier:InterfaceIdentifier): void;
         get<T>(identifier:InterfaceIdentifier, ...args): T;

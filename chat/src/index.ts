@@ -1,7 +1,7 @@
 import ChatComponent from './comp';
 import getReducer from './reducer';
 
-import { interfaces, registrar, store } from 'sdk';
+import { interfaces, registry, store } from 'sdk';
 
 class Chat implements interfaces.chat.IChat {
     get Component(): new(...args: any[]) => React.Component<interfaces.chat.IPassedProps> {
@@ -9,11 +9,11 @@ class Chat implements interfaces.chat.IChat {
     }
 }
 
-registrar.bind<interfaces.chat.IChat>(interfaces.Symbols.IChat, Chat);
+registry.bind<interfaces.chat.IChat>(interfaces.Symbols.IChat, Chat);
 
 export function init() {
     let reducer = getReducer();
     store.addReducer(reducer.name, reducer.reducer);
 
-    return registrar.resolve(interfaces.chat.deps)
+    return registry.resolve(interfaces.chat.deps)
 }

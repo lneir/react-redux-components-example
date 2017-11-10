@@ -1,13 +1,13 @@
 import { interfaces } from './interfaces';
-import { Registrar, default as registrar } from './registrar';
+import { Registry, default as registry } from './registry';
 import * as store from './store';
 import { injectInterface } from './utils/decorators';
 import bindDependencies from './utils/bindDependencies';
 
 export {
     interfaces,
-    registrar,
-    Registrar,
+    registry,
+    Registry,
     store,
     injectInterface,
     bindDependencies

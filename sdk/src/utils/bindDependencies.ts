@@ -1,4 +1,4 @@
-import registrar from '../registrar';
+import registry from '../registry';
 import { interfaces } from '../interfaces'
 
 /**
@@ -15,7 +15,7 @@ import { interfaces } from '../interfaces'
  */
 export default function bindDependencies(func: (...args) => any, dependencies: Array<interfaces.InterfaceIdentifier>) {
     let injections = dependencies.map((dependency) => {
-        return () => { return registrar.get(dependency); }
+        return () => { return registry.get(dependency); }
     });
     return function() {
         return func.apply(func, Array.prototype.slice.call(arguments).concat(...injections));

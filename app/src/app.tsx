@@ -6,13 +6,13 @@ import { withContext } from 'recompose';
 import * as Nav from 'navigation';
 import * as Grid from 'grid';
 
-import { interfaces, Registrar, registrar, store } from 'sdk';
+import { interfaces, Registry, registry, store } from 'sdk';
 
 Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let str = store.getStore();
 
-    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
-    let nav = registrar.get<interfaces.nav.INavigation>(interfaces.Symbols.INavigation);
+    let grid = registry.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
+    let nav = registry.get<interfaces.nav.INavigation>(interfaces.Symbols.INavigation);
 
     let navEl = document.getElementById('nav');
 
@@ -31,8 +31,8 @@ Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
 
     let gridEl = document.getElementById('grid');
 
-    const reg = registrar;
-    const NewProvider = withContext( { registrar: Registrar }, props => ({ registrar: reg }))(Provider);
+    const reg = registry;
+    const NewProvider = withContext( { registry: Registry }, props => ({ registry: reg }))(Provider);
 
     ReactDOM.render(
       <NewProvider store={str}>

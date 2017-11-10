@@ -3,7 +3,7 @@ import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { getContext } from 'recompose';
 
-import { interfaces, Registrar } from 'sdk';
+import { interfaces, Registry } from 'sdk';
 
 interface IStateProps {
 }
@@ -13,7 +13,7 @@ interface IDispatchProps {
 }
 
 interface registarViaContext {
-    registrar: interfaces.IRegistrar;
+    registry: interfaces.IRegistry;
 }
 
 type updatePassedProps = interfaces.chat.IPassedProps & registarViaContext;
@@ -28,8 +28,8 @@ const mapStateToProps = (state: any, ownProps: updatePassedProps): IStateProps =
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: updatePassedProps): IDispatchProps => {
-    let registrar:interfaces.IRegistrar = ownProps.registrar;
-    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
+    let registry:interfaces.IRegistry = ownProps.registry;
+    let grid = registry.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
     return {
         closeAction: (streamId: string) => dispatch(grid.close(streamId))
     }
@@ -60,4 +60,4 @@ class Chat extends React.Component<ChatProps, ChatState> {
 }
 
 const connectedComp = connect(mapStateToProps, mapDispatchToProps)(Chat);
-export default getContext({ registrar: Registrar })(connectedComp);
+export default getContext({ registry: Registry })(connectedComp);
