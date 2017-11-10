@@ -3,7 +3,7 @@ import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { getContext } from 'recompose';
 
-import { interfaces, Registrar, shallowEqual } from 'sdk';
+import { interfaces, Registrar } from 'sdk';
 
 interface IStateProps {
 }
@@ -28,7 +28,7 @@ const mapStateToProps = (state: any, ownProps: updatePassedProps): IStateProps =
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: updatePassedProps): IDispatchProps => {
-    let registrar:interfaces.Grid.IGrid = ownProps.registrar;
+    let registrar:interfaces.IRegistrar = ownProps.registrar;
     let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
     return {
         closeAction: (streamId: string) => dispatch(grid.close(streamId))
@@ -59,29 +59,5 @@ class Chat extends React.Component<ChatProps, ChatState> {
     }
 }
 
-// function selectorFactory(dispatch) {
-//     let ownProps = {}
-//     let result = {}
-//     let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
-//
-//     const actions = {
-//         closeAction: (streamId: string) => dispatch(grid.close(streamId))
-//     }
-//     return (nextState, nextOwnProps) => {
-//         debugger;
-//         const nextResult = { ...nextOwnProps, ...actions }
-//         ownProps = nextOwnProps
-//         if (!shallowEqual(result, nextResult)) {
-//             result = nextResult;
-//         }
-//         return result
-//     }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Chat);
-
-
-// const connectedComp = connectAdvanced(selectorFactory)(Chat);
 const connectedComp = connect(mapStateToProps, mapDispatchToProps)(Chat);
 export default getContext({ registrar: Registrar })(connectedComp);
-// export default connectAdvanced(selectorFactory)(Chat)

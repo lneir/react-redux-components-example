@@ -2,12 +2,12 @@ import * as React from 'react';
 import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 
-import { interfaces, registrar, shallowEqual } from 'sdk';
+import { interfaces, bindDependencies } from 'sdk';
 
-interface IStateProps {
+export interface IStateProps {
 }
 
-interface IDispatchProps {
+export interface IDispatchProps {
     openAction(streamId: string): interfaces.grid.IOpenAction
 }
 
@@ -16,16 +16,19 @@ type NavProps = interfaces.nav.IPassedProps & IStateProps & IDispatchProps;
 interface NavState {
 }
 
-// const mapStateToProps = (state: any, ownProps: IPassedProps): IStateProps => {
-//     return {
-//     }
-// }
-//
-// const mapDispatchToProps = (dispatch: Dispatch<any>): IDispatchProps => {
-//     return {
-//         openAction: (streamId: string) => dispatch(grid.actions.open(streamId))
-//     }
-// };
+
+const mapStateToProps = (state: any, ownProps: interfaces.nav.IPassedProps): IStateProps => {
+    return {
+    }
+}
+
+let mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: interfaces.nav.IPassedProps, getIGrid: () => interfaces.grid.IGrid): IDispatchProps => {
+    let grid = getIGrid();
+    return {
+        openAction: (streamId: string) => dispatch(grid.open(streamId))
+    }
+};
+let newMapDispatchToProps = bindDependencies(mapDispatchToProps, [ interfaces.Symbols.IGrid ] );
 
 class Navigation extends React.Component<NavProps, NavState> {
     constructor(props: NavProps) {
@@ -63,22 +66,4 @@ class Navigation extends React.Component<NavProps, NavState> {
     }
 }
 
-function selectorFactory(dispatch) {
-    let ownProps = {}
-    let result = {}
-    let grid = registrar.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
-
-    const actions = {
-        openAction: (streamId: string) => dispatch(grid.open(streamId))
-    }
-    return (nextState, nextOwnProps) => {
-        const nextResult = { ...nextOwnProps, ...actions }
-        ownProps = nextOwnProps
-        if (!shallowEqual(result, nextResult)) {
-            result = nextResult;
-        }
-        return result
-    }
-}
-// export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
-export default connectAdvanced(selectorFactory)(Navigation)
+export default connect(mapStateToProps, newMapDispatchToProps)(Navigation);
