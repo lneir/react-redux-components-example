@@ -2,7 +2,7 @@ import { interfaces } from './interfaces';
 import { Registry, default as registry } from './registry';
 import * as store from './store';
 import { injectInterface } from './utils/decorators';
-import bindDependencies from './utils/bindDependencies';
+import bindInterfaces from './utils/bindInterfaces';
 
 export {
     interfaces,
@@ -10,5 +10,5 @@ export {
     Registry,
     store,
     injectInterface,
-    bindDependencies
+    bindInterfaces
 }

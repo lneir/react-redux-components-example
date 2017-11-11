@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 
-import { interfaces, bindDependencies } from 'sdk';
+import { interfaces, bindInterfaces } from 'sdk';
 
 export interface IStateProps {
 }
@@ -28,7 +28,7 @@ let mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: interfaces.nav.IPas
         openAction: (streamId: string) => dispatch(grid.open(streamId))
     }
 };
-let newMapDispatchToProps = bindDependencies(mapDispatchToProps, [ interfaces.Symbols.IGrid ] );
+let newMapDispatchToProps = bindInterfaces(mapDispatchToProps, [ interfaces.Symbols.IGrid ] );
 
 class Navigation extends React.Component<NavProps, NavState> {
     constructor(props: NavProps) {
