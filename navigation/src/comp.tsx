@@ -29,7 +29,7 @@ let mapDispatchToProps = (getIGrid: () => interfaces.grid.IGrid,
         openAction: (streamId: string) => dispatch(grid.open(streamId))
     }
 };
-let newMapDispatchToProps = bindInterfaces(mapDispatchToProps, [ interfaces.Symbols.IGrid ] );
+let boundMapDispatchToProps = bindInterfaces(mapDispatchToProps, [ interfaces.Symbols.IGrid ] );
 
 class Navigation extends React.Component<NavProps, NavState> {
     constructor(props: NavProps) {
@@ -67,4 +67,4 @@ class Navigation extends React.Component<NavProps, NavState> {
     }
 }
 
-export default connect(mapStateToProps, newMapDispatchToProps)(Navigation);
+export default connect(mapStateToProps, boundMapDispatchToProps)(Navigation);

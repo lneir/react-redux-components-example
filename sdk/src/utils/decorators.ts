@@ -22,7 +22,7 @@ import { interfaces } from '../interfaces'
  * }
  */
 let injectInterface = (interfaceIdentifier: interfaces.InterfaceIdentifier) => {
-    return function(proto: any, key: string): void {
+    return (proto: any, key: string): void  => {
        let resolve = () => { return registry.get(interfaceIdentifier); };
        proxyGetter(proto, key, resolve);
    };

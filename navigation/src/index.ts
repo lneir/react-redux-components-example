@@ -8,7 +8,7 @@ class Navigation implements interfaces.nav.INavigation {
     }
 }
 
-registry.bind<interfaces.nav .INavigation>(interfaces.Symbols.INavigation, Navigation);
+registry.bind<interfaces.nav.INavigation>(interfaces.Symbols.INavigation, Navigation);
 
 export function init() {
     let reducer = getReducer();
