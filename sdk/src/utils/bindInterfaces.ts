@@ -2,22 +2,28 @@ import registry from '../registry';
 import { interfaces } from '../interfaces'
 
 /**
- * Calls given function (func) with extra functions that return instances of interfaces.
- * @param  {Function} func         Function to call with new
- * @param  {Array<Symbols>} interfaces  Array of interfaces to get bound to function.
+ * Returns a new function that is bound to the given function (func) with
+ * additional arguments that provide access to given interfaces.
+ * @param  {Function} func  Function that gets bound to new arguments.
+ * @param  {Array<Symbols>} interfaces  Array of interfaces to bind against function.
  * @return {Function}  New function with additional argument functions.
  *
  * Example:
- * let myFunc = (x,y) => { ...do something... }
- * myNewFunc = bindInterfaces(myFunc, [ interface.grid.IGrid ])
- * when myNewFunc is called it will have new signature: (x,y,getIGrid). Calling getIGrid()
- * will return instance of IGrid.
+ * let myFunc = (getIGrid: () => interfaces.grid.IGrid, arg1:string, arg2: number) => {
+ *   var grid:interfaces.grid.IGrid = getIGrid();
+ *   ....do something...
+ * }
+ *
+ * let newBoundMyFunc = bindInterfaces(myFunc, [ interfaces.Symbols.IGrid ]);
+ *
+ * // this will call myFunc with two args and additional bound argument: getIGrid.
+ * newBoundMyFunc('hello', 1)
+ *
  */
-export default function bindInterfaces(func: (...args) => any, interfaces: Array<interfaces.InterfaceIdentifier>) {
+export default function bindInterfaces(func: (...args: Array<any>) => any,
+        interfaces: Array<interfaces.InterfaceIdentifier>) {
     let injectedInterfaces = interfaces.map((dependency) => {
         return () => { return registry.get(dependency); }
     });
-    return function() {
-        return func.apply(func, Array.prototype.slice.call(arguments).concat(...injectedInterfaces));
-    }
+    return func.bind(func, ...injectedInterfaces);
 }

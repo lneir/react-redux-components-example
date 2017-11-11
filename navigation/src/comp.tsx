@@ -22,7 +22,8 @@ const mapStateToProps = (state: any, ownProps: interfaces.nav.IPassedProps): ISt
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: interfaces.nav.IPassedProps, getIGrid: () => interfaces.grid.IGrid): IDispatchProps => {
+let mapDispatchToProps = (getIGrid: () => interfaces.grid.IGrid,
+        dispatch: Dispatch<any> ): IDispatchProps => {
     let grid = getIGrid();
     return {
         openAction: (streamId: string) => dispatch(grid.open(streamId))
