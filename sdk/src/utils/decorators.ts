@@ -1,5 +1,4 @@
 import proxyGetter from './proxy';
-import registry from '../registry';
 import { interfaces } from '../interfaces'
 
 /**
@@ -21,13 +20,18 @@ import { interfaces } from '../interfaces'
  *   }
  * }
  */
-let injectInterface = (interfaceIdentifier: interfaces.InterfaceIdentifier) => {
-    return (proto: any, key: string): void  => {
-       let resolve = () => { return registry.get(interfaceIdentifier); };
-       proxyGetter(proto, key, resolve);
-   };
-};
+function makeInjectInterface(registry) {
+    let injectInterface = (interfaceIdentifier: interfaces.InterfaceIdentifier) => {
+        return (proto: any, key: string): void  => {
+           let resolve = () => {
+               return registry.get(interfaceIdentifier); };
+           proxyGetter(proto, key, resolve);
+       };
+    };
+
+    return injectInterface;
+}
 
 export {
-   injectInterface
+   makeInjectInterface
 }

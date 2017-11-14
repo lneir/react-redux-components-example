@@ -1,4 +1,3 @@
-import registry from '../registry';
 import { interfaces } from '../interfaces'
 
 /**
@@ -20,10 +19,14 @@ import { interfaces } from '../interfaces'
  * newBoundMyFunc('hello', 1)
  *
  */
-export default function bindInterfaces(func: (...args: Array<any>) => any,
-        interfaces: Array<interfaces.InterfaceIdentifier>) {
-    let injectedInterfaces = interfaces.map((dependency) => {
-        return () => { return registry.get(dependency); }
-    });
-    return func.bind(func, ...injectedInterfaces);
+function makeBindInterfaces(registry) {
+    return function bindInterfaces(func: (...args: Array<any>) => any,
+            interfaces: Array<interfaces.InterfaceIdentifier>) {
+        let injectedInterfaces = interfaces.map((dependency) => {
+            return () => { return registry.get(dependency); }
+        });
+        return func.bind(func, ...injectedInterfaces);
+    }
 }
+
+export { makeBindInterfaces }

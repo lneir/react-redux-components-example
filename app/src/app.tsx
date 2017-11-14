@@ -6,7 +6,7 @@ import { withContext } from 'recompose';
 import * as Nav from 'navigation';
 import * as Grid from 'grid';
 
-import { interfaces, Registry, registry, store } from 'sdk';
+import { interfaces, registry, store } from 'sdk';
 
 Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let str = store.getStore();
@@ -31,13 +31,10 @@ Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
 
     let gridEl = document.getElementById('grid');
 
-    const reg = registry;
-    const NewProvider = withContext( { registry: Registry }, props => ({ registry: reg }))(Provider);
-
     ReactDOM.render(
-      <NewProvider store={str}>
+      <Provider store={str}>
         <grid.Component/>
-      </NewProvider>,
+      </Provider>,
       gridEl
     );
 }).catch((err) => { console.error('app failed to init with error: ' + err)});

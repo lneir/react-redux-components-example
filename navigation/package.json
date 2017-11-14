@@ -7,11 +7,33 @@
   "scripts": {
     "run": "ts-node ./src/index.ts",
     "prepublishOnly": "tsc -p ./ --outDir dist/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose --coverage"
   },
   "author": "",
   "license": "ISC",
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig-jest.json"
+      }
+    },
+    "transform": {
+      "^.+\\.(j|t)sx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!sdk)"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
+  },
   "devDependencies": {
+    "@types/jest": "^21.1.6",
     "@types/react": "16.0.15",
     "@types/react-dom": "16.0.2",
     "@types/react-redux": "5.0.10",
@@ -19,10 +41,14 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
+    "enzyme": "^3.1.1",
+    "enzyme-adapter-react-16": "^1.0.4",
     "http-server": "^0.10.0",
+    "jest": "^21.2.1",
+    "ts-jest": "^21.2.2",
     "ts-loader": "^2.3.2",
     "typescript": "^2.4.2",
     "webpack": "^3.4.1",

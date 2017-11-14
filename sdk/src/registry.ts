@@ -116,8 +116,6 @@ export class Registry implements interfaces.IRegistry {
     }
 }
 
-export default new Registry();
-
 // example:
 // interface ITest {
 //     hello: string;

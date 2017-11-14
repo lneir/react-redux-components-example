@@ -3,37 +3,32 @@ import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { getContext } from 'recompose';
 
-import { interfaces, Registry } from 'sdk';
+import { interfaces, bindInterfaces } from 'sdk';
 
-interface IStateProps {
+export interface IStateProps {
 }
 
-interface IDispatchProps {
+export interface IDispatchProps {
     closeAction(streamId: string): interfaces.grid.ICloseAction
 }
 
-interface registarViaContext {
-    registry: interfaces.IRegistry;
-}
-
-type updatePassedProps = interfaces.chat.IPassedProps & registarViaContext;
-
-type ChatProps = updatePassedProps & IStateProps & IDispatchProps;
+type ChatProps = interfaces.chat.IPassedProps & IStateProps & IDispatchProps;
 
 interface ChatState {
 }
 
-const mapStateToProps = (state: any, ownProps: updatePassedProps): IStateProps => {
+const mapStateToProps = (state: any, ownProps: interfaces.chat.IPassedProps): IStateProps => {
     return { }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: updatePassedProps): IDispatchProps => {
-    let registry:interfaces.IRegistry = ownProps.registry;
-    let grid = registry.get<interfaces.grid.IGrid>(interfaces.Symbols.IGrid);
+const mapDispatchToProps = (getIGrid: () => interfaces.grid.IGrid,
+        dispatch: Dispatch<any>): IDispatchProps => {
+    let grid = getIGrid();
     return {
         closeAction: (streamId: string) => dispatch(grid.close(streamId))
     }
 };
+let boundMapDispatchToProps = bindInterfaces(mapDispatchToProps, [ interfaces.Symbols.IGrid ] );
 
 class Chat extends React.Component<ChatProps, ChatState> {
     constructor(props: ChatProps) {
@@ -59,5 +54,4 @@ class Chat extends React.Component<ChatProps, ChatState> {
     }
 }
 
-const connectedComp = connect(mapStateToProps, mapDispatchToProps)(Chat);
-export default getContext({ registry: Registry })(connectedComp);
+export default connect(mapStateToProps, boundMapDispatchToProps)(Chat);
