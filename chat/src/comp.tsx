@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect, connectAdvanced } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { getContext } from 'recompose';
 
 import { interfaces, bindInterfaces } from 'sdk';
 

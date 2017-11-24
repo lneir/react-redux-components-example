@@ -77,11 +77,14 @@ namespace interfaces {
         }
     }
 
+    export type ComponentloaderFunc = (identifier:symbol) => Promise<any>;
+
     export interface IRegistry {
         bind<T>(identifier:InterfaceIdentifier, constructorOrInstance: constructor<T>|T): void;
         unbind<T>(identifier:InterfaceIdentifier): void;
         get<T>(identifier:InterfaceIdentifier, ...args): T;
         resolve(identifiers: Array<InterfaceIdentifier>): Promise<Array<boolean>>;
+        setComponentLoader(componentLoader: ComponentloaderFunc): void;
         snapshot(): void;
         restore(): void;
     }

@@ -1,12 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { withContext } from 'recompose';
 
 import * as Nav from 'navigation';
 import * as Grid from 'grid';
 
 import { interfaces, registry, store } from 'sdk';
+
+import loadComponent from './loadComponent';
+
+registry.setComponentLoader(loadComponent);
 
 Promise.all([ Grid.init(), Nav.init() ]).then(() =>  {
     let str = store.getStore();

@@ -1,7 +1,7 @@
 {
   "name": "chat",
   "version": "1.0.0",
-  "description": "",
+  "description": "example chat component",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -28,13 +28,15 @@
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.8.2"
   },
+  "localDependencies": {
+      "sdk": "../sdk"
+  },
   "dependencies": {
     "react": "16.0.0",
     "react-dom": "16.0.0",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
     "redux-thunk": "2.2.0",
-    "reselect": "3.0.1",
-    "sdk": "../sdk"
+    "reselect": "3.0.1"
   }
 }

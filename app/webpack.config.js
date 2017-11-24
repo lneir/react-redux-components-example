@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	entry: {
@@ -47,7 +48,10 @@ module.exports = {
 		new CleanWebpackPlugin(['dist']),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'common-dependencies'
-		})
+		}),
+		new BundleAnalyzerPlugin({
+            analyzerMode: 'static'
+        })
 	],
 	devtool: 'source-map',
 	externals: [

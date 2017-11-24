@@ -29,7 +29,7 @@ class MockGrid implements interfaces.grid.IGrid {
 }
 
 describe('Navigation Components tests', () => {
-    let grid;
+    let grid:interfaces.grid.IGrid;
     beforeEach(() => {
         grid = new MockGrid();
         jest.spyOn(grid, 'open');

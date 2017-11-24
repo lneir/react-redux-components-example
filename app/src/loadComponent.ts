@@ -1,6 +1,14 @@
-import { interfaces } from './interfaces';
+import { interfaces } from 'sdk';
 
-// type InterfaceIdentifier = interfaces.InterfaceIdentifier;
+// This module provides ability to dynamically load a component. If component
+// is loaded succcessfully then the init() function for the component is called
+// which should be responsible for registering the component.
+//
+// All dependencies that can be dynamically loaded must be added here and also
+// added to package.json.
+//
+// This module can not be located in sdk (as desired) because it would
+// create circular dependencies.
 
 // map from key: interface symbol to component that implements interface.
 // Provides a method to dynamically load and init a component.

@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Note: this script expects install-local cmd to be avaiable globally:
+# npm install -g install-local
+# https://github.com/nicojs/node-install-local
+
 build()
 {
   cd $1
@@ -8,10 +12,11 @@ build()
   rm -rf node_modules/chat
   rm -rf node_modules/grid
   rm -rf node_modules/navigation
-  npm i
+  install-local
   npm run prepublishOnly
   cd ..
   echo "done building:"$1
+  echo "--------------"
 }
 
 build sdk
@@ -25,5 +30,5 @@ rm -rf node_modules/sdk
 rm -rf node_modules/chat
 rm -rf node_modules/grid
 rm -rf node_modules/navigation
-npm i
+install-local
 npm run watch

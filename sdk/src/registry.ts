@@ -1,4 +1,3 @@
-import loadComponent from './loadComponent';
 import { interfaces } from './interfaces'
 
 export type InterfaceIdentifier = interfaces.InterfaceIdentifier;
@@ -7,6 +6,7 @@ export class Registry implements interfaces.IRegistry {
     private map: Map<InterfaceIdentifier,any>;
     private clonedMap: Map<InterfaceIdentifier,any>;
     private waitingForRestore: boolean;
+    private componentLoader: interfaces.ComponentloaderFunc;
 
     constructor() {
         this.map = new Map();
@@ -66,7 +66,11 @@ export class Registry implements interfaces.IRegistry {
                 resolve(true);
                 return;
             }
-            loadComponent(identifier)
+            if (!this.componentLoader) {
+                reject('registry requires loader to be provided.');
+                return;
+            }
+            this.componentLoader(identifier)
             .then(() => { resolve(true); })
             .catch(err => {
                 reject('Can not load module: ' + identifier.toString());
@@ -87,6 +91,15 @@ export class Registry implements interfaces.IRegistry {
         });
 
         return Promise.all(promises);
+    }
+
+    /**
+     * Provides a function that has the ability to dynamically load a
+     * component given it symbol.
+     * @param {interfaces.ComponentloaderFunc} componentLoader  Function that will load component.
+     */
+    setComponentLoader(componentLoader: interfaces.ComponentloaderFunc): void {
+        this.componentLoader = componentLoader;
     }
 
     /**
